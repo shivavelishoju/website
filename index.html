@@ -543,7 +543,7 @@
     
     </div>
    <!-- About Section -->
-<section id="about" class="py-20 bg-transpart">
+<section id="about" class="py-20 bg-darker">
     <div class="container mx-auto px-6">
         <!-- Section Title -->
         <div class="text-center mb-16">
@@ -1501,9 +1501,13 @@ class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
 </div>
     
 <!-- PROJECTS SECTION -->
-<section id="projects" class="py-20 bg-transpart">
+<!-- ========================================= -->
+<!-- PROJECTS SECTION -->
+<!-- ========================================= -->
 
-    <div class="container mx-auto px-6 ">
+<section id="projects" class="py-5 bg-darker overflow-hidden">
+
+    <div class="container mx-auto px-6">
 
         <!-- HEADING -->
         <div class="text-center mb-16">
@@ -1517,349 +1521,509 @@ class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
                 and software applications developed under the VELINO ecosystem.
             </p>
 
-            <div class="w-74 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-5 rounded-full"></div>
+            <!-- <div
+                class="w-32 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-5 rounded-full">
+            </div> -->
 
         </div>
 
-        <!-- GRID -->
-        <div class=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- ========================================= -->
+        <!-- PROJECT SLIDER -->
+        <!-- ========================================= -->
 
-            <!-- PROJECT 1 -->
-            <div class="project-card group"
-            onclick="openProject(
-                'VELINO IDE',
-                
-                'VELINO IDE is a modern custom development environment designed for embedded systems, IoT development, and smart hardware programming. Built using Electron.js and Node.js, the IDE provides a lightweight yet powerful platform for developing, compiling, uploading, and monitoring embedded applications with an intuitive futuristic interface. The IDE simplifies embedded workflows by combining code editing, serial communication, project management, and hardware integration into one unified platform. Features include Arduino & ESP32 support, integrated Serial Monitor, syntax highlighting, project management tools, Arduino CLI integration, custom themes, smooth animations, and optimized performance for IoT and robotics development.',
-                
-                'Electron.js, Node.js, JavaScript, HTML5, CSS3, Arduino CLI, Monaco Editor, SerialPort',
-                
-                'https://i.postimg.cc/qv6pHgjq/velino-ide.png',
-                
-                '#',
-                '#'
-                )">
-
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
-                         alt="VELINO IDE"
-                         class="project-image">
-                </div>
-
-                <div class="p-5 text-center">
-                    <h3 class="project-title">VELINO IDE</h3>
-                </div>
-
-            </div>
-
-             <!-- PROJECT 2 -->
-             <div class="project-card group"
-             onclick="openProject(
-                 'Bionic Hand',
-                 
-                 'Bionic Hand is an advanced robotic prosthetic hand designed using embedded systems, servo motor control, and sensor-based gesture recognition to mimic natural human hand movements. The project focuses on creating a smart robotic arm capable of performing precise finger movements, object gripping, and responsive motion control using real-time input signals. Developed for robotics, biomedical assistance, and automation research, the system demonstrates human-machine interaction through intelligent motion replication and embedded control technologies. The robotic hand integrates multiple servo motors, gesture sensing, wireless control capabilities, and programmable movement algorithms for realistic robotic functionality.',
-                 
-                 'Embedded Systems, Arduino, Servo Motors, Robotics, Gesture Control, Sensors',
-                 
-                 'https://i.postimg.cc/P5gCndvr/maxresdefault.jpg',
-                 
-                 '#',
-                 '#'
-                 )">
- 
-                 <div class="h-72 overflow-hidden bg-black">
-                     <img src="https://i.postimg.cc/P5gCndvr/maxresdefault.jpg"
-                          alt="Bionic Hand"
-                          class="project-image">
-                 </div>
- 
-                 <div class="p-5 text-center">
-                     <h3 class="project-title">Bionic Hand</h3>
-                 </div>
- 
-             </div>
-
-
-              <!-- PROJECT 3 -->
-            <div class="project-card group"
-            onclick="openProject(
-'Master Slave Robotic Hand',
-
-'Master Slave Robotic Hand is a gesture-controlled robotic arm system designed to replicate real-time human hand movements using flex sensors and wireless communication technology. The master hand captures finger and motion gestures through sensor inputs, while the slave robotic hand accurately mirrors the same movements using servo motor control. The project demonstrates advanced human-machine interaction, embedded systems integration, and real-time robotics control for applications in automation, medical assistance, industrial robotics, and remote operation systems. The system focuses on precision movement, wireless synchronization, and intelligent robotic control architecture.',
-
-'Flex Sensors, Arduino, Servo Motors, Robotics, Wireless Communication, Embedded Systems',
-
-'https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp',
-
-'#',
-'#'
-)">
-
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp"
-                         alt="Master Slave Robotic Hand"
-                         class="project-image">
-                </div>
-
-                <div class="p-5 text-center">
-                    <h3 class="project-title">Master Slave Robotic Hand</h3>
-                </div>
-
-            </div>
-  <!-- PROJECT 4 -->
-  <div class="project-card group"
-  onclick="openProject(
-      'VELINO MECANUM SURVEILLANCE ROBOT',
-      
-      'VELINO MECANUM SURVEILLANCE ROBOT is an advanced omni-directional robotic surveillance system designed for intelligent monitoring, security inspection, and autonomous movement applications. Built using mecanum wheels, the robot can move smoothly in all directions including sideways, diagonal, and rotational movement, enabling high-precision navigation in complex environments. The system integrates wireless live monitoring, obstacle detection, real-time control, and smart robotic navigation for industrial, security, and research applications. Developed using embedded systems and IoT technologies, the project demonstrates intelligent robotics engineering, surveillance automation, and futuristic mobility control systems.',
-      
-      ' Mecanum Wheels, Robotics, Surveillance Systems, Embedded Systems, IoT, Automation',
-      
-      'https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png',
-      
-      '#',
-      '#'
-      )">
-
-      <div class="h-72 overflow-hidden bg-black">
-          <img src="https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png"
-               alt="Mecanum Robot"
-               class="project-image">
-      </div>
-
-      <div class="p-5 text-center">
-          <h3 class="project-title">VELINO MECANUM SURVEILLANCE ROBOT</h3>
-      </div>
-
-  </div>
-
- <!-- PROJECT 5 -->
- <div class="project-card group rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 cursor-pointer"
- onclick="openProject(
- 'VELINO FOOD DELIVERY ROBOT',
- 
- 'VELINO FOOD DELIVERY ROBOT is an autonomous smart robotic delivery system designed for restaurants, hospitals, hotels, and smart environments to enable efficient contactless delivery. The robot is capable of intelligent navigation, obstacle avoidance, wireless control, and tray-based item transportation using embedded systems and sensor-driven automation. Built to improve modern service automation, the system integrates motor control, real-time movement monitoring, and smart robotic interaction for seamless indoor delivery operations. The project demonstrates robotics engineering, IoT communication, automation technologies, and intelligent mobility systems for futuristic smart service applications.',
- 
- 'ESP32, Robotics, Automation, Sensors, Motor Drivers, Embedded Systems, IoT',
- 
- 'https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png',
- 
- '#',
- '#'
- )">
- 
-     <!-- IMAGE CONTAINER -->
-     <div class="h-72 w-full bg-black overflow-hidden flex items-center justify-center">
- 
-         <img src="https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png"
-              alt="Food Delivery Robot"
-              class="w-full h-full object-contain group-hover:scale-105 transition duration-500 p-2">
- 
-     </div>
- 
-     <!-- CONTENT -->
-     <div class="p-5 text-center">
- 
-         <h3 class="text-xl font-bold text-white mb-3">
-             VELINO FOOD DELIVERY ROBOT
-         </h3>
- 
-        
- 
+        <div class="relative">
+<style>/* ========================================= */
+    /* SLIDER BUTTON POSITION */
+    /* ========================================= */
     
- 
-     </div>
- 
- </div>
-  <!-- PROJECT 5 -->
-  <div class="project-card group"
-  onclick="openProject(
+    /* LEFT BUTTON */
+    #slideLeft{
+    
+        left:-55px;      /* move more left */
+        top:50%;
+    }
+    
+    /* RIGHT BUTTON */
+    #slideRight{
+    
+        right:-55px;     /* move more right */
+        top:50%;
+    }
+    
+    /* MOBILE FIX */
+    @media(max-width:768px){
+    
+        #slideLeft{
+            left:5px;
+        }
+    
+        #slideRight{
+            right:5px;
+        }
+    }</style>
+            <!-- LEFT BUTTON -->
+            <button id="slideLeft" class="slider-btn left-4">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <!-- RIGHT BUTTON -->
+            <button id="slideRight" class="slider-btn right-0">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- SLIDER -->
+            <div id="projectSlider"
+                class="flex gap-8 overflow-x-auto scroll-smooth px-2 py-5">
+
+                <!-- ========================================= -->
+                <!-- PROJECT 1 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO IDE',
+'VELINO IDE is a modern custom development environment designed for embedded systems, IoT development, and smart hardware programming. Built using Electron.js and Node.js, the IDE provides a futuristic platform for coding, compiling, uploading, and monitoring embedded applications.',
+'Electron.js, Node.js, JavaScript, HTML5, CSS3, Arduino CLI, Monaco Editor',
+'https://i.postimg.cc/qv6pHgjq/velino-ide.png',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
+                            alt="VELINO IDE"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            VELINO IDE
+                        </h3>
+
+                        <p class="project-desc">
+                            Futuristic embedded development platform.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 2 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Bionic Hand',
+'Advanced robotic prosthetic hand designed using embedded systems and gesture recognition technologies to mimic natural human hand movement.',
+'Arduino, Robotics, Servo Motors, Sensors',
+'https://i.postimg.cc/P5gCndvr/maxresdefault.jpg',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/P5gCndvr/maxresdefault.jpg"
+                            alt="Bionic Hand"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Bionic Hand
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart robotic prosthetic system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 3 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Master Slave Robotic Hand',
+'Gesture-controlled robotic arm system designed to replicate real-time human hand movements using flex sensors and wireless communication.',
+'Flex Sensors, Arduino, Robotics, Embedded Systems',
+'https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp"
+                            alt="Robotic Hand"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Master Slave Roboti Hand
+                        </h3>
+
+                        <p class="project-desc">
+                            Human-machine interaction robotics.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 4 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO MECANUM SURVEILLANCE ROBOT',
+'Advanced omni-directional surveillance robot using mecanum wheels for intelligent navigation and autonomous movement.',
+'Mecanum Wheels, Robotics, IoT, Embedded Systems',
+'https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png"
+                            alt="Mecanum Robot"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                           Velino MECANUM ROBOT
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart omni-directional surveillance robot.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 5 -->
+                <!-- ========================================= -->
+
+                <!-- PROJECT 5 -->
+<div class="project-card"
+onclick="openProject(
+'VELINO FOOD DELIVERY ROBOT',
+'Autonomous smart robotic delivery system designed for restaurants, hospitals, hotels, and smart environments.',
+'ESP32, Robotics, Automation, IoT',
+'https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png',
+'#',
+'#'
+)">
+
+<!-- IMAGE CONTAINER -->
+<div class="project-image-container food-robot-image">
+
+    <img src="https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png"
+        alt="Food Robot"
+        class="project-image food-img">
+
+</div>
+
+<div class="project-content">
+
+    <h3 class="project-title">
+        Velino FOOD DELIVERY ROBOT
+    </h3>
+
+    <p class="project-desc">
+        Autonomous indoor delivery robot.
+    </p>
+
+</div>
+
+</div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 6 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
 'VELINO AIRPAD',
-
-'VELINO AIRPAD is a custom wireless gaming controller developed using ESP32 technology for mobile, PC, and IoT-based gaming applications. Designed with ergonomic controls and low-latency Bluetooth communication, the AirPad delivers smooth and responsive gameplay experiences. The project integrates joystick modules, multiple control buttons, wireless BLE connectivity, rechargeable power management, and custom PCB design to create a compact futuristic gaming device. VELINO AIRPAD demonstrates embedded systems engineering, wireless communication, and real-time interactive control for smart gaming and robotics applications.',
-
-'ESP32, BLE, Gamepad Development, Embedded Systems, PCB Design, Joystick Control',
-
+'Wireless ESP32 gaming controller designed for PC, mobile, and IoT gaming applications.',
+'ESP32, BLE, PCB Design, Embedded Systems',
 'https://i.postimg.cc/yYFR6gB1/IMG-3239.avif',
-
 '#',
 '#'
 )">
 
-      <div class="h-72 overflow-hidden bg-black">
-          <img src="https://i.postimg.cc/yYFR6gB1/IMG-3239.avif"
-               alt="VELINO AIRPAD"
-               class="project-image">
-      </div>
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/yYFR6gB1/IMG-3239.avif"
+                            alt="VELINO AIRPAD"
+                            class="project-image">
+                    </div>
 
-      <div class="p-5 text-center">
-          <h3 class="project-title">VELINO AIRPAD</h3>
-      </div>
+                    <div class="project-content">
 
-  </div>
+                        <h3 class="project-title">
+                            VELINO AIRPAD
+                        </h3>
 
- 
-            <!-- PROJECT 7 -->
-            <div class="project-card group"
-            onclick="openProject(
+                        <p class="project-desc">
+                            Futuristic wireless gaming controller.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 7 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
 'VELINO BOARD',
-
-'VELINO BOARD is a custom-designed smart embedded development board created for IoT, robotics, automation, and intelligent hardware applications. The board integrates multiple modules including relay control, Bluetooth communication, sensor interfaces, power management, and GPIO expansion into a single compact platform. Designed to simplify rapid prototyping and real-world hardware development, VELINO BOARD supports wireless automation, sensor monitoring, robotics control, and smart home applications. The system is optimized for ESP32-based projects with efficient PCB layout, stable power delivery, and modular hardware architecture for future expansion.',
-
-'ESP32, PCB Design, IoT, Embedded Systems, Bluetooth, Relay Control, Sensors, Robotics',
-
+'Custom smart embedded development board designed for IoT, automation, and robotics applications.',
+'ESP32, PCB Design, Sensors, Relay Control',
 'https://i.postimg.cc/NfzQnR7G/velino-board.png',
-
 '#',
 '#'
 )">
 
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/NfzQnR7G/velino-board.png"
-                         alt="VELINO BOARD"
-                         class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/NfzQnR7G/velino-board.png"
+                            alt="VELINO BOARD"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            VELINO BOARD
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart embedded development platform.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div class="p-5 text-center">
-                    <h3 class="project-title">VELINO BOARD</h3>
+                <!-- ========================================= -->
+                <!-- PROJECT 8 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VADDI Calculator',
+'Finance and EMI calculation application supporting Telugu and English languages.',
+'MIT App Inventor, Android Development',
+'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop"
+                            alt="VADDI Calculator"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            VADDI Calculator
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart finance calculation application.
+                        </p>
+
+                    </div>
+
                 </div>
 
-            </div>
+                <!-- ========================================= -->
+                <!-- PROJECT 9 -->
+                <!-- ========================================= -->
 
-            
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO C3 AI PET BOT',
+'AI-inspired smart desktop companion built using ESP32-C3 with OLED animations and interactive expressions.',
+'ESP32-C3, OLED Display, IoT',
+'https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg',
+'#',
+'#'
+)">
 
-           
-            <!-- PROJECT 5 -->
-            <div class="project-card group"
-            onclick="openProject(
-                'VADDI Calculator App',
-                
-                'VADDI Calculator is a smart finance and interest calculation application developed to simplify EMI, loan, and monthly interest calculations with a clean and user-friendly mobile interface. The application supports both Telugu and English languages, making financial calculations easier and more accessible for regional users. Built using MIT App Inventor, the app includes features such as simple interest calculation, monthly EMI estimation, Indian number formatting, quick finance utilities, and responsive mobile interaction. The project focuses on creating practical financial tools with simple UI design and efficient performance for everyday users.',
-                
-                'MIT App Inventor, Android Development, Finance Application, UI Design, Mobile App Development',
-                
-                'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop',
-                
-                '#',
-                '#'
-                )">
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg"
+                            alt="AI PET BOT"
+                            class="project-image">
+                    </div>
 
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop"
-                         alt="VADDI Calculator App"
-                         class="project-image">
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino c3 AI BOT
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart AI desktop companion robot.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div class="p-5 text-center">
-                    <h3 class="project-title">VADDI Calculator App</h3>
+                <!-- ========================================= -->
+                <!-- PROJECT 10 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Zone Based ADAS',
+'Advanced Driver Assistance System for obstacle detection and intelligent vehicle safety.',
+'ADAS, Embedded Systems, IoT',
+'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop"
+                            alt="ADAS"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Zone Based ADAS
+                        </h3>
+
+                        <p class="project-desc">
+                            Intelligent vehicle safety platform.
+                        </p>
+
+                    </div>
+
                 </div>
 
-            </div>
+                <!-- ========================================= -->
+                <!-- PROJECT 11 -->
+                <!-- ========================================= -->
 
-            <!-- PROJECT 6 -->
-            <div class="project-card group"
-            onclick="openProject(
-                'VELINO C3 AI PET BOT',
-                
-                'VELINO C3 AI PET BOT is an AI-inspired smart desktop companion built using the ESP32-C3 microcontroller. The project features animated OLED eyes, interactive expressions, environmental monitoring, smart notifications, and real-time responsive behaviors to create an engaging robotic companion experience. Designed as a futuristic embedded AI device, the system combines intelligent animations, sensor integration, wireless communication, and compact hardware design. The bot is capable of displaying emotions, reacting to user interaction, monitoring environmental conditions, and serving as a smart IoT desktop assistant for modern automation ecosystems.',
-                
-                'ESP32-C3, OLED Display, Embedded Systems, IoT, AI Companion, Animation Systems',
-                
-                'https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg',
-                
-                '#',
-                '#'
-                )">
-
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg"
-                         alt="VELINO C3 AI PET BOT"
-                         class="project-image">
-                </div>
-
-                <div class="p-5 text-center">
-                    <h3 class="project-title">VELINO C3 AI </h3>
-                </div>
-
-            </div>
-
-           
-           
-
-            <!-- PROJECT 8 -->
-            <div class="project-card group"
-            onclick="openProject(
-                'Zone Based Advanced Driver Assistance System',
-                
-                'Zone Based Advanced Driver Assistance System (ADAS) is an intelligent vehicle safety and automation system developed to improve driver awareness, obstacle detection, and road safety using embedded sensors and smart decision-making algorithms. The system continuously monitors multiple vehicle zones including blind spots, front collision areas, and surrounding obstacles to provide real-time alerts and automated assistance. Designed for smart mobility and automotive safety applications, the project integrates ultrasonic sensors, IoT communication, automation logic, and embedded processing to create a reliable driver assistance platform. The system enhances navigation safety, collision prevention, and intelligent vehicle monitoring in real-world driving environments.',
-                
-                'ADAS, Embedded Systems, IoT,  Robotics, Vehicle Safety Systems, Smart Mobility',
-                
-                'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop',
-                
-                '#',
-                '#'
-                )">
-
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop"
-                         alt="ADAS"
-                         class="project-image">
-                </div>
-
-                <div class="p-5 text-center">
-                    <h3 class="project-title">Zone Based ADAS</h3>
-                </div>
-
-            </div>
-
-           
-           
-            <!-- PROJECT 11 -->
-            <div class="project-card group"
-            onclick="openProject(
+                <div class="project-card"
+                    onclick="openProject(
 'ESP32 C3 MAP NAVIGATOR',
-
-'ESP32 C3 MAP NAVIGATOR is a smart navigation and location tracking system developed using the ESP32-C3 microcontroller for robotics, smart mobility, and IoT-based navigation applications. The system integrates GPS technology, digital map guidance, real-time location tracking, and wireless communication to provide intelligent navigation support for autonomous systems and embedded devices. Designed for smart robotics and mobility platforms, the project enables route monitoring, location visualization, and navigation assistance with efficient low-power embedded processing. The system demonstrates advanced IoT integration, GPS-based positioning, and real-time navigation control for futuristic automation and mapping solutions.',
-
-
+'Smart GPS navigation and location tracking system using ESP32-C3 technology.',
+'GPS, ESP32-C3, Navigation Systems',
 'https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp',
-
 '#',
 '#'
 )">
 
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp"
-                         alt="Map Navigator"
-                         class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp"
+                            alt="MAP NAVIGATOR"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino MAP NAVIGATOR
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart GPS navigation system.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div class="p-5 text-center">
-                    <h3 class="project-title">ESP32 C3 MAP NAVIGATOR</h3>
-                </div>
+                <!-- ========================================= -->
+                <!-- PROJECT 12 -->
+                <!-- ========================================= -->
 
-            </div>
-
-            <!-- PROJECT 12 -->
-            <div class="project-card group"
-            onclick="openProject(
-            'Smart Medicine Reminder',
-'The Smart Medicine Reminder is an IoT-based healthcare solution designed to help users take medicines on time through smart alerts, automated scheduling, and real-time monitoring. Built using ESP32 technology, the system integrates RTC modules, buzzer alerts, display interfaces, and mobile connectivity to provide accurate reminders and improve medication management. The project focuses on healthcare automation, smart notifications, and user-friendly operation for elderly people and patients requiring regular medication schedules.',
-'ESP32, IoT, RTC Module, Healthcare Automation, Embedded Systems, Sensors',
+                <div class="project-card"
+                    onclick="openProject(
+'Smart Medicine Reminder',
+'IoT healthcare reminder system designed to provide medicine alerts and scheduling.',
+'ESP32, RTC Module, IoT',
 'https://i.postimg.cc/Qtx900Wt/IMG-3411.avif',
 '#',
 '#'
-            )">
+)">
 
-                <div class="h-72 overflow-hidden bg-black">
-                    <img src="https://i.postimg.cc/Qtx900Wt/IMG-3411.avif"
-                         alt="Medicine Reminder"
-                         class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/Qtx900Wt/IMG-3411.avif"
+                            alt="Medicine Reminder"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino Smart Medicine Reminder
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart healthcare automation system.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div class="p-5 text-center">
-                    <h3 class="project-title">Smart Medicine Reminder</h3>
-                </div>
+                <!-- ========================================= -->
+<!-- PROJECT 13 -->
+<!-- ========================================= -->
+
+<div class="project-card"
+onclick="openProject(
+'VELINO IR + BLUETOOTH SMART HOME AUTOMATION',
+'VELINO IR + BLUETOOTH SMART HOME AUTOMATION is an intelligent embedded automation system designed to control home appliances using both IR remote and Bluetooth wireless communication technologies. The system integrates relay control, DHT11 temperature monitoring, LCD display interface, mobile app connectivity, manual and automatic control modes, and real-time device management for seamless smart home interaction. Developed using Arduino Uno and ESP32 technologies, the project demonstrates embedded systems engineering, wireless communication, IoT automation, and smart device control for futuristic home automation applications.',
+'Arduino Uno, ESP32, IR Remote, Bluetooth HC-05, IoT, Relay Modules, DHT11 Sensor, Embedded Systems, LCD Display',
+'https://i.postimg.cc/1zQwd6bm/720A0A9E-71B2-4DB3-9EB5-A308C83EB9EA.png',
+'#',
+'#'
+)">
+
+<!-- IMAGE -->
+<div class="project-image-container">
+
+    <img src="https://i.postimg.cc/1zQwd6bm/720A0A9E-71B2-4DB3-9EB5-A308C83EB9EA.png"
+        alt="VELINO IR + BLUETOOTH SMART HOME AUTOMATION"
+        class="project-image">
+
+</div>
+
+<!-- CONTENT -->
+<div class="project-content">
+
+    <h3 class="project-title">
+        VELINO IR + BLUETOOTH SMART HOME AUTOMATION
+    </h3>
+
+    <p class="project-desc">
+        IR remote and Bluetooth based smart home automation system.
+    </p>
+
+</div>
+
+</div>
 
             </div>
 
@@ -1868,6 +2032,515 @@ class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
     </div>
 
 </section>
+
+<!-- ========================================= -->
+<!-- PROJECT MODAL -->
+<!-- ========================================= -->
+
+<div id="projectModal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 items-center justify-center p-4">
+
+    <div
+        class="bg-slate-900 w-full max-w-5xl rounded-3xl overflow-hidden border border-cyan-500/20 relative animate-fadeIn">
+
+        <!-- CLOSE -->
+        <button onclick="closeProject()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-red-500 transition text-white z-10">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+        <div class="grid md:grid-cols-2 gap-0">
+
+            <!-- IMAGE -->
+            <div class="bg-black flex items-center justify-center p-6">
+
+                <img id="modalImage"
+                    src=""
+                    alt=""
+                    class="w-full h-[350px] object-cover rounded-2xl">
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-8 overflow-y-auto max-h-[80vh]">
+
+                <h2 id="modalTitle"
+                    class="text-3xl font-bold text-white mb-5">
+                </h2>
+
+                <!-- ABOUT -->
+                <div class="mb-6">
+
+                    <h3 class="text-cyan-400 text-lg font-semibold mb-3">
+                        About Project
+                    </h3>
+
+                    <p id="modalDescription"
+                        class="text-slate-300 leading-relaxed text-[15px]">
+                    </p>
+
+                </div>
+
+                <!-- TECH -->
+                <div class="mb-8">
+
+                    <h3 class="text-cyan-400 text-lg font-semibold mb-3">
+                        Technologies Used
+                    </h3>
+
+                    <div id="modalTech"
+                        class="flex flex-wrap gap-3">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- CSS -->
+<!-- ========================================= -->
+
+<style>
+
+/* ========================================= */
+/* FOOD ROBOT POPUP IMAGE FIX */
+/* ========================================= */
+
+#modalImage{
+
+width:100%;
+height:350px;
+
+object-fit:contain !important;
+
+background:#020617;
+
+padding:12px;
+
+border-radius:18px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+#modalImage{
+
+    height:220px;
+
+    object-fit:contain !important;
+
+    padding:10px;
+}
+}
+.food-robot-image{
+
+height:240px;
+
+overflow:hidden;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#020617;
+
+padding:12px;
+}
+
+.food-img{
+
+width:100%;
+height:100%;
+
+object-fit:contain !important;
+
+max-width:100%;
+max-height:100%;
+
+display:block;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.food-robot-image{
+    height:220px;
+}
+}
+
+#projectSlider{
+    scrollbar-width:none;
+}
+
+#projectSlider::-webkit-scrollbar{
+    display:none;
+}
+
+/* CARD */
+.project-card{
+
+    min-width:340px;
+    max-width:340px;
+
+    flex-shrink:0;
+
+    background:rgba(15,23,42,.92);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.4s ease;
+}
+
+.project-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#06b6d4;
+
+    box-shadow:0 20px 40px rgba(6,182,212,.2);
+}
+
+/* IMAGE CONTAINER */
+.project-image-container{
+
+    width:100%;
+    height:240px;
+
+    overflow:hidden;
+
+    background:#020617;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px;
+}
+
+/* IMAGE */
+.project-image{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    transition:transform .5s ease;
+}
+
+.project-card:hover .project-image{
+    transform:scale(1.06);
+}
+
+/* CONTENT */
+.project-content{
+    padding:20px;
+}
+
+.project-title{
+
+    color:white;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.project-desc{
+
+    color:#94a3b8;
+
+    font-size:.95rem;
+
+    line-height:1.6;
+}
+
+/* SLIDER BUTTON */
+.slider-btn{
+
+    position:absolute;
+
+    top:45%;
+
+    transform:translateY(-50%);
+
+    z-index:20;
+
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    background:rgba(15,23,42,.9);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    color:white;
+
+    transition:.3s ease;
+}
+
+.slider-btn:hover{
+
+    background:rgb(51, 52, 54);
+
+    transform:translateY(-50%) scale(1.1);
+}
+
+/* MODAL */
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.animate-fadeIn{
+    animation:fadeIn .3s ease;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .project-card{
+
+        min-width:88%;
+        max-width:88%;
+    }
+
+    .project-image-container{
+        height:220px;
+    }
+
+    .slider-btn{
+        width:45px;
+        height:45px;
+    }
+
+    #modalImage{
+        height:240px;
+    }
+}
+
+/* ========================================= */
+/* MOBILE MODAL FIX */
+/* ========================================= */
+
+@media(max-width:768px){
+
+/* MODAL CONTAINER */
+#projectModal{
+    padding:12px;
+    align-items:flex-start;
+    overflow-y:auto;
+}
+
+/* MODAL BOX */
+#projectModal .animate-fadeIn{
+
+    width:100%;
+    max-width:100%;
+
+    margin-top:20px;
+    margin-bottom:20px;
+
+    border-radius:22px;
+
+    max-height:95vh;
+
+    overflow-y:auto;
+}
+
+/* GRID FIX */
+#projectModal .grid{
+    grid-template-columns:1fr;
+}
+
+/* IMAGE */
+#modalImage{
+
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+}
+
+/* IMAGE WRAPPER */
+#projectModal .bg-black{
+
+    padding:14px;
+}
+
+/* CONTENT */
+#projectModal .p-8{
+
+    padding:20px;
+}
+
+/* TITLE */
+#modalTitle{
+
+    font-size:1.6rem;
+    line-height:1.3;
+}
+
+/* DESCRIPTION */
+#modalDescription{
+
+    font-size:.95rem;
+    line-height:1.8;
+}
+
+/* TECH TAGS */
+#modalTech{
+
+    gap:10px;
+}
+
+#modalTech span{
+
+    font-size:.8rem;
+    padding:8px 14px;
+}
+
+/* CLOSE BUTTON */
+#projectModal button{
+
+    width:42px;
+    height:42px;
+
+    top:10px;
+    right:10px;
+}
+
+}
+
+</style>
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script>
+
+/* ========================================= */
+/* SLIDER */
+/* ========================================= */
+
+const slider = document.getElementById("projectSlider");
+
+document.getElementById("slideRight").onclick = () => {
+
+    slider.scrollBy({
+        left:380,
+        behavior:"smooth"
+    });
+
+};
+
+document.getElementById("slideLeft").onclick = () => {
+
+    slider.scrollBy({
+        left:-380,
+        behavior:"smooth"
+    });
+
+};
+
+/* ========================================= */
+/* OPEN PROJECT */
+/* ========================================= */
+
+function openProject(title, description, tech, image, github, live){
+
+    document.getElementById("projectModal").classList.remove("hidden");
+
+    document.getElementById("projectModal").classList.add("flex");
+
+    document.getElementById("modalTitle").innerText = title;
+
+    document.getElementById("modalDescription").innerText = description;
+
+    document.getElementById("modalImage").src = image;
+
+    /* TECH TAGS */
+
+    const techContainer = document.getElementById("modalTech");
+
+    techContainer.innerHTML = "";
+
+    const techArray = tech.split(",");
+
+    techArray.forEach(item => {
+
+        const tag = document.createElement("span");
+
+        tag.className =
+            "px-4 py-2 rounded-full bg-slate-800 text-cyan-400 text-sm border border-cyan-500/20";
+
+        tag.innerText = item.trim();
+
+        techContainer.appendChild(tag);
+
+    });
+
+}
+
+/* ========================================= */
+/* CLOSE PROJECT */
+/* ========================================= */
+
+function closeProject(){
+
+    document.getElementById("projectModal").classList.add("hidden");
+
+    document.getElementById("projectModal").classList.remove("flex");
+
+}
+
+/* ========================================= */
+/* CLICK OUTSIDE CLOSE */
+/* ========================================= */
+
+window.onclick = function(e){
+
+    const modal = document.getElementById("projectModal");
+
+    if(e.target === modal){
+
+        closeProject();
+
+    }
+
+}
+
+</script>
      <!-- SECTION DIVIDER -->
      <div class="flex items-center justify-center my-2 bg-darker">
 
@@ -1928,7 +2601,7 @@ class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
         <div class="text-center mb-14">
 
             <h2 class="text-3xl md:text-5xl font-bold mb-4">
-                Demo <span class="gradient-text">Play</span>
+               <span class="gradient-text">Demo</span>
             </h2>
 
             <p class="text-slate-400 max-w-2xl mx-auto">
