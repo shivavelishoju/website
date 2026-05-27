@@ -641,41 +641,7 @@
                     </div>
 
                 </div>
-                <!-- Resume Section -->
-                <div class="flex flex-col sm:flex-row gap-4">
-                  <!-- Resume Dropdown -->
-<select id="resumeSelect"
-class="bg-slate-800 border border-slate-600 text-white px-5 py-3 rounded-full focus:outline-none focus:border-primary">
-
-<option value="">Select Resume</option>
-
-<!-- ECE Resume -->
-<option value="https://drive.google.com/file/d/1h2V1ZmvhcwtC1cqu-4ip1dtJnT8L5IXO/view?usp=drive_link">
-    ECE Resume
-</option>
-
-<!-- Java Resume -->
-<option value="https://drive.google.com/file/d/11q0IcUZPtw736Mo_QFgI-SPiHFKhtViW/view?usp=drive_link">
-    Java Developer Resume
-</option>
-
-<!-- Manual Testing Resume -->
-<option value="https://drive.google.com/file/d/1Z_XZ1UdlLzjCqylogyV94QWNSeJt7Etp/view?usp=drive_link">
-    Manual Testing Resume
-</option>
-
-</select>
-
-                    <!-- Download Button -->
-                    <button onclick="downloadResume()"
-                        class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center justify-center">
-
-                        <i class="fas fa-download mr-2"></i>
-                        Download CV
-
-                    </button>
-
-                </div>
+                
 
             </div>
 
@@ -2725,27 +2691,171 @@ window.onclick = function(e){
                         </div>
                     </div>
                     
-                    <div class="mt-8">
-                        <h4 class="font-bold mb-4">Follow Me</h4>
-                        <div class="flex space-x-4">
-                            
-                            <a href="#" class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary">
-                                <i class="fab fa-github text-xl"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/" class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600">
-                                <i class="fab fa-linkedin-in text-xl"></i>
-                            </a>
+                   <!-- FOLLOW ME -->
+<div class="mt-8">
 
-                            <a href="https://wa.me/919963761162"
-   target="_blank"
-   class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500">
+    <h4 class="font-bold mb-4">
+        Follow Me
+    </h4>
+
+    <!-- SOCIAL ICONS -->
+    <div class="flex flex-wrap gap-4">
+
+        <!-- GITHUB -->
+        <a href="#"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary">
+
+            <i class="fab fa-github text-xl"></i>
+
+        </a>
+
+        <!-- LINKEDIN -->
+        <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600">
+
+            <i class="fab fa-linkedin-in text-xl"></i>
+
+        </a>
+
+        <!-- WHATSAPP -->
+        <a href="https://wa.me/919963761162"
+            target="_blank"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500">
+
+            <i class="fab fa-whatsapp text-xl"></i>
+
+        </a>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- RESUME SECTION -->
+    <!-- ========================================= -->
+
+    <div class="mt-8">
+
+        <h4 class="font-bold mb-4">
+            Download Resume
+        </h4>
+
+        <div class="resume-wrapper">
+
+            <!-- SELECT -->
+            <select id="resumeSelect"
+                class="resume-select">
+
+                <option value="">
+                    Select Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/1h2V1ZmvhcwtC1cqu-4ip1dtJnT8L5IXO/view?usp=drive_link">
+                    ECE Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/11q0IcUZPtw736Mo_QFgI-SPiHFKhtViW/view?usp=drive_link">
+                    Java Developer Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/1Z_XZ1UdlLzjCqylogyV94QWNSeJt7Etp/view?usp=drive_link">
+                    Manual Testing Resume
+                </option>
+
+            </select>
+
+            <!-- BUTTON -->
+            <button onclick="downloadResume()"
+                class="resume-btn">
+
+                <i class="fas fa-download mr-2"></i>
+                Download CV
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div><style>/* ========================================= */
+    /* RESUME SECTION */
+    /* ========================================= */
     
-    <i class="fab fa-whatsapp text-xl"></i>
-</a>
-
-
-                        </div>
-                    </div>
+    .resume-wrapper{
+    
+        display:flex;
+        gap:14px;
+    
+        align-items:center;
+    
+        flex-wrap:wrap;
+    }
+    
+    .resume-select{
+    
+        background:#1e293b;
+    
+        border:1px solid rgba(255,255,255,.1);
+    
+        color:white;
+    
+        padding:14px 20px;
+    
+        border-radius:999px;
+    
+        outline:none;
+    
+        min-width:260px;
+    
+        transition:.3s ease;
+    }
+    
+    .resume-select:focus{
+    
+        border-color:#06b6d4;
+    
+        box-shadow:0 0 15px rgba(6,182,212,.25);
+    }
+    
+    .resume-btn{
+    
+        padding:14px 28px;
+    
+        border-radius:999px;
+    
+        background:linear-gradient(to right,#06b6d4,#3b82f6);
+    
+        color:white;
+    
+        font-weight:600;
+    
+        transition:.3s ease;
+    
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .resume-btn:hover{
+    
+        transform:translateY(-3px);
+    
+        box-shadow:0 10px 25px rgba(6,182,212,.35);
+    }
+    
+    /* MOBILE */
+    @media(max-width:768px){
+    
+        .resume-wrapper{
+    
+            flex-direction:column;
+            align-items:stretch;
+        }
+    
+        .resume-select,
+        .resume-btn{
+    
+            width:100%;
+        }
+    }</style>
                 </div>
                 
                 <div>
@@ -2807,7 +2917,7 @@ window.onclick = function(e){
 
         <textarea name="message"
                   id="message"
-                  rows="5"
+                  rows="7"
                   class="w-full px-4 py-3 rounded-lg contact-input focus:outline-none"
                   required></textarea>
     </div>
