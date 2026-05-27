@@ -25,7 +25,53 @@
         }
     </script>
     <style>
-        
+        #topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(15, 23, 42, 0.8);
+    color: white;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(20px);
+
+    transition: all 0.3s ease;
+
+    z-index: 999;
+}
+
+/* SHOW BUTTON */
+#topBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* HOVER EFFECT */
+#topBtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
 
 #projectModal {
     animation: fadeIn 0.3s ease;
@@ -44,17 +90,51 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         body {
+    margin: 0;
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(
-        135deg,
-        #021357,
-        #042470,
-        #1c263d
-    );
-    color: #e2e8f0;
     overflow-x: hidden;
+    color: #e2e8f0;
 }
-        
+
+/* Background container */
+.bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Each slide */
+.bg-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+/* Active slide */
+.bg-slide.active {
+    opacity: 1;
+}
+
+/* Dark overlay for readability */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(1, 16, 48, 0.75),
+        rgba(1, 16, 48, 0.90)
+    );
+    z-index: -1;
+}
         .gradient-text {
             background: linear-gradient(90deg, #0ea5e9, #7e22ce);
             -webkit-background-clip: text;
@@ -167,8 +247,140 @@
         }
 
         
+        .hero-image-wrap {
+    position: relative;
+    width: 520px;
+    height: 700px;
+}
+
+.hero-image-wrap {
+    position: relative;
+    width: 750px;
+    height: 810px;
+}
+
+/* PURE IMAGE ONLY */
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+   
+  
+
+    /* LEFT SIDE FADE ONLY */
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.2)   15%,
+        rgba(0,0,0,0.6) 30%,
+        rgba(0,0,0,1) 90%
+    );
+
+    mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.2) 15%,
+        rgba(0,0,0,0.6) 50%,
+        rgba(0,0,0,1) 90%
+    );
+
+    /* subtle premium look */
+    filter: contrast(1.00) saturate(1.1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-image-wrap {
+        width: 420px;
+        height: 320px;
+    }
+}
+
+.search-container {
+    position: relative;
+
+    width: 600px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    border-radius: 16px;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(14px);
+
+    transition: all 0.3s ease;
+
+    overflow: hidden;
+}
+
+/* subtle glow on focus */
+.search-container:focus-within {
+
+    border-color: rgba(34,211,238,0.35);
+
+    box-shadow:
+        0 0 0 4px rgba(34,211,238,0.06),
+        0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* icon */
+.search-icon {
+    color: rgba(255,255,255,0.45);
+
+    font-size: 15px;
+
+    margin-right: 14px;
+}
+
+/* input */
+.search-input {
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    letter-spacing: 0.2px;
+}
+
+/* placeholder */
+.search-input::placeholder {
+    color: rgba(255,255,255,0.35);
+}
+
+/* optional soft top highlight */
+.search-container::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background: rgba(255,255,255,0.08);
+}
+        
     </style>
 </head>
+
+
 <body class="bg-dark text-slate-200">
     <div class="fixed inset-0 -z-10 overflow-hidden">
 
@@ -182,6 +394,19 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <a href="#" class="text-2xl font-bold gradient-text">Portfolio</a>
+
+                <div class="search-container">
+
+                    <i class="fas fa-search search-icon"></i>
+                
+                    <input 
+                        type="text" 
+                        id="portfolioSearch"
+                        placeholder="Search projects, skills..."
+                        class="search-input"
+                    >
+                
+                </div>
                 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
@@ -194,6 +419,7 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="nav-link active">Home</a>
                     <a href="#about" class="nav-link">About</a>
+                    <a href="#Experience" class="nav-link">Experience</a>
                     <a href="#skills" class="nav-link">Skills</a>
                     <a href="#projects" class="nav-link">Projects</a>
                     <a href="#contact" class="nav-link">Contact</a>
@@ -204,6 +430,7 @@
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
                 <a href="#home" class="block py-2 nav-link active">Home</a>
                 <a href="#about" class="block py-2 nav-link">About</a>
+                <a href="#Experience" class="nav-link">Experience</a>
                 <a href="#skills" class="block py-2 nav-link">Skills</a>
                 <a href="#projects" class="block py-2 nav-link">Projects</a>
                 <a href="#contact" class="block py-2 nav-link">Contact</a>
@@ -211,195 +438,319 @@
         </div>
     </nav>
     
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center pt-20">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 mb-12 md:mb-0">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="gradient-text">Shiva Velishoju</span></h1>
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-slate-300">Founder of Velino IDE </h2>  
-                <!-- <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-slate-300">Embedded Systems  Software Developer </h2> -->
-                <p class="text-lg mb-8 text-slate-400 max-w-lg">
-                    I build smart embedded systems, IoT solutions, and modern software experiences that combine innovation, performance, and futuristic design. Passionate about transforming ideas into impactful real-world technology..
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#contact" class="px-6 py-3 rounded-full btn-primary font-medium">Hire Me</a>
-                    <a href="#projects" class="px-6 py-3 rounded-full border border-primary text-primary font-medium hover:bg-primary/10 transition">View Work</a>
-              
-                </div>
-                <div class="flex mt-8 space-x-4">
-                    <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-400">
-                        <i class="fab fa-twitter"></i>
-                    </a> 
-                    <!-- <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-pink-600">
-                        <i class="fab fa-dribbble"></i>
-                    </a> -->
+<!-- Hero Section -->
+<!-- Background Slider -->
 
-                    <a href="https://wa.me/919963761162"
-   target="_blank"
-   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500">
-    
-    <i class="fab fa-whatsapp"></i>
-</a>
-                </div>
+<div class="bg-slider"> 
+    <div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1504639725590-34d0984388bd');"></div>
+</div>
+
+<!-- Overlay -->
+
+<div class="overlay"></div>
+<section id="home" class="min-h-screen flex items-center pt-20">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+
+        <!-- Left Content -->
+        <div class="md:w-1/2 mb-12 md:mb-0">
+
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                Hi, I'm 
+                <span class="gradient-text">Shiva Velishoju</span>
+            </h1>
+
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-slate-300">
+                Founder of Velino IDE
+            </h2>
+
+            <p class="text-lg mb-8 text-slate-400 max-w-lg leading-relaxed">
+                I build smart embedded systems, IoT solutions, and modern software 
+                experiences that combine innovation, performance, and futuristic design. 
+                Passionate about transforming ideas into impactful real-world technology.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex flex-wrap items-center gap-4 mt-8">
+
+                <!-- GitHub -->
+                <a href="https://github.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary transition">
+
+                    <i class="fab fa-github"></i>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600 transition">
+
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <!-- Twitter/X -->
+                <a href="https://twitter.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-400 transition">
+
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/919963761162"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500 transition">
+
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
             </div>
-            <div class="md:w-1/2 flex justify-center">
-                <!-- <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
-                    <img src="https://i.postimg.cc/RZJvxqX3/pass.jpg" 
-                         alt="Profile" 
-                         class="relative w-full h-full object-cover rounded-full border-4 border-slate-800 floating" >
-                </div> -->
-                <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-        
-                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
-                    <img src="https://i.postimg.cc/Dw473mB7/shiva.png"
-                         alt="About" 
-                         class="relative w-full h-full object-cover rounded-2xl border-4 border-slate-800">
-                </div>
-            </div>
+
+            <!-- Scroll To Top Button -->
+<button id="topBtn">
+    <i class="fas fa-arrow-up"></i>
+</button>            
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+            </div> 
         </div>
-        
-    </section>
+        <!-- Right Image -->
+        <div class="md:w-2/2 flex justify-center items-center ">
+           <!-- <div class="hero-image-wrap left-12 bottom-2"> -->
+                <div class="hero-image-wrap  bottom-2">        
+                <img src="https://i.postimg.cc/Dw473mB7/shiva.png"
+                     alt="Shiva Velishoju"
+                     class="hero-image">       
+            </div>       
+        </div>
+    </div>
+</section>  
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
     
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-darker">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
-            </div>
-            
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                    <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-                        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
-                        <img src=" https://i.postimg.cc/qv6pHgjq/velino-ide.png"
-                             alt="About" 
-                             class="relative w-full h-full object-cover rounded-2xl border-4 border-slate-800">
-                    </div>
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+   <!-- About Section -->
+<section id="about" class="py-20 bg-transpart">
+    <div class="container mx-auto px-6">
+        <!-- Section Title -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                About <span class="gradient-text">Me</span>
+            </h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+        </div>
+        <!-- Content -->
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Left Image -->
+            <div class="md:w-1/3 flex justify-center">
+                <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                    <!-- Glow Effect -->
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
+                    <!-- Image -->
+                    <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
+                         alt="Velino IDE"
+                         class="relative w-full h-full object-cover rounded-2xl border-4 border-slate-800 shadow-2xl floating">
                 </div>
-
-                  <!-- <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
-                    <img src="https://i.postimg.cc/RZJvxqX3/pass.jpg" 
-                         alt="Profile" 
-                         class="relative w-full h-full object-cover rounded-full border-4 border-slate-800 floating" >
-                </div> -->
-                
-                <div class="md:w-2/3 md:pl-12">
-                    <h3 class="text-2xl font-bold mb-6">Who am I?</h3>
-                    <p class="text-slate-400 mb-6">
-                        I’m Shiva Velishoju, Founder of Velino IDE and Developer passionate about building Embedded Systems & Software Developer focused on building next-generation hardware and intelligent digital ecosystems. My work combines embedded engineering, IoT, automation, PCB design, and modern software development to create practical technologies that bridge the gap between hardware innovation and user-centric experiences.
-
-I specialize in developing smart systems using ESP32, Arduino, and custom electronics, alongside software platforms built with technologies such as Electron.js, Node.js, and mobile application frameworks. As the creator of projects like Velino IDE, Velino Board, Velino AirPad, and VADDI Calculator, I aim to design products that are not only technically advanced but also intuitive, scalable, and impactful in real-world use cases.
-
-My vision with Velino is to build a futuristic technology ecosystem that empowers developers, makers, and everyday users through intelligent tools, seamless hardware integration, and innovative digital experiences. From smart automation systems and custom IDE development to interactive applications and embedded product design, I am driven by the passion to transform ambitious ideas into meaningful technology solutions.
-
-I believe technology should not only function efficiently but also inspire creativity, simplify complexity, and improve the way people interact with the digital world. </p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div>
-                            <h4 class="font-semibold mb-2">Name: <span class="text-slate-300">Shiva Velishoju</span></h4>
-                            <h4 class="font-semibold mb-2">Email: <span class="text-slate-300">shivavelishoju0827@.com</span></h4>
-                            <h4 class="font-semibold mb-2">Phone: <span class="text-slate-300">+91 9963761162</span></h4>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Age: <span class="text-slate-300">24</span></h4>
-                            <h4 class="font-semibold mb-2">Experience: <span class="text-slate-300">1 Year</span></h4>
-                            <h4 class="font-semibold mb-2">Location: <span class="text-slate-300">Warangal, Telangana, India</span></h4>
-                        </div>
+            </div>
+            <!-- Right Content -->
+            <div class="md:w-2/3">
+                <h3 class="text-2xl font-bold mb-6">
+                    Who am I?
+                </h3>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    I’m Shiva Velishoju, Founder of Velino IDE and an Embedded Systems &
+                    Software Developer passionate about building next-generation hardware
+                    and intelligent digital ecosystems.
+                </p>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    My work combines embedded engineering, IoT, automation, PCB design,
+                    and modern software development to create practical technologies that
+                    bridge the gap between hardware innovation and user-centric experiences.
+                </p>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    I specialize in developing smart systems using ESP32, Arduino, and
+                    custom electronics, alongside software platforms built with
+                    Electron.js, Node.js, and modern mobile application technologies.
+                </p>
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    As the creator of projects like Velino IDE, Velino Board, Velino AirPad,
+                    and VADDI Calculator, my vision is to build futuristic technologies that
+                    empower developers, makers, and everyday users through seamless
+                    hardware-software integration and innovative digital experiences.
+                </p>
+                <!-- Personal Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <!-- Left -->
+                    <div class="space-y-3">
+                        <h4 class="font-semibold">
+                            Name:
+                            <span class="text-slate-300 font-normal">
+                                Shiva Velishoju
+                            </span>
+                        </h4>
+                        <h4 class="font-semibold">
+                            Email:
+                            <span class="text-slate-300 font-normal">
+                                shivavelishoju0827@gmail.com
+                            </span>
+                        </h4>
+                        <h4 class="font-semibold">
+                            Phone:
+                            <span class="text-slate-300 font-normal">
+                                +91 9963761162
+                            </span>
+                        </h4>
                     </div>
-                    
-                   <!-- Download Resume Button -->
-    <!-- <a href="resume/VELISHOJU SHIVA ECE .pdf" 
-    download
-    class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center">
-    
-    <i class="fas fa-download mr-2"></i>
-    Download CV
- </a> -->
+                    <!-- Right -->
+                    <div class="space-y-3">
 
- <!-- Resume Dropdown -->
+                        <h4 class="font-semibold">
+                            Age:
+                            <span class="text-slate-300 font-normal">
+                                24
+                            </span>
+                        </h4>
+
+                        <h4 class="font-semibold">
+                            Experience:
+                            <span class="text-slate-300 font-normal">
+                                1+ Year
+                            </span>
+                        </h4>
+
+                        <h4 class="font-semibold">
+                            Location:
+                            <span class="text-slate-300 font-normal">
+                                Warangal, Telangana, India
+                            </span>
+                        </h4>
+
+                    </div>
+
+                </div>
+                <!-- Resume Section -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <!-- Resume Dropdown -->
 <select id="resumeSelect"
 class="bg-slate-800 border border-slate-600 text-white px-5 py-3 rounded-full focus:outline-none focus:border-primary">
 
-    <option value="">Select Resume</option>
+<option value="">Select Resume</option>
 
-    <option value="resume/Shiva_ECE_Resume.pdf">
-        ECE Resume
-    </option>
+<!-- ECE Resume -->
+<option value="https://drive.google.com/file/d/1h2V1ZmvhcwtC1cqu-4ip1dtJnT8L5IXO/view?usp=drive_link">
+    ECE Resume
+</option>
 
-    <option value="resume/Shiva_Java_Resume.pdf">
-        Java Developer Resume
-    </option>
+<!-- Java Resume -->
+<option value="https://drive.google.com/file/d/11q0IcUZPtw736Mo_QFgI-SPiHFKhtViW/view?usp=drive_link">
+    Java Developer Resume
+</option>
 
-    <option value="resume/Shiva_ManualTesting_Resume.pdf">
-        Manual Testing Resume
-    </option>
+<!-- Manual Testing Resume -->
+<option value="https://drive.google.com/file/d/1Z_XZ1UdlLzjCqylogyV94QWNSeJt7Etp/view?usp=drive_link">
+    Manual Testing Resume
+</option>
 
 </select>
 
-<!-- Download Button -->
-<button onclick="downloadResume()"
-class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center">
+                    <!-- Download Button -->
+                    <button onclick="downloadResume()"
+                        class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center justify-center">
 
-    <i class="fas fa-download mr-2"></i>
-    Download CV
-</button>
+                        <i class="fas fa-download mr-2"></i>
+                        Download CV
+
+                    </button>
+
                 </div>
-            </div>
-            
-            <!-- Experience Timeline -->
-           <!-- Experience Timeline -->
-<div class="mt-20">
 
-    <h3 class="text-2xl font-bold mb-12 text-center">
+            </div>
+
+        </div>
+
+    </div>
+</section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+        
+<!-- Experience Timeline -->
+<div class="mt-20" id="Experience">
+
+    <!-- Section Title -->
+    <h3 class="text-2xl md:text-3xl font-bold mb-14 text-center">
         My <span class="gradient-text">Experience</span>
     </h3>
 
-    <div class="relative max-w-4xl mx-auto">
+    <div class="relative max-w-5xl mx-auto">
 
-        <!-- Center Line -->
-        <div class="absolute left-1/2 h-full w-1 bg-slate-700 transform -translate-x-1/2 hidden md:block"></div>
+        <!-- Center Timeline Line -->
+        <div class="absolute left-1/2 top-0 h-full w-1 bg-slate-700 transform -translate-x-1/2 hidden md:block"></div>
 
         <!-- Experience 1 -->
-        <div class="mb-10 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
 
-            <div class="md:w-5/12"></div>
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
 
-            <div class="md:w-5/12 p-6 bg-slate-800 rounded-xl shadow-lg card-hover">
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
                 <h4 class="text-xl font-bold mb-2 text-primary">
                     Embedded Systems Developer
                 </h4>
 
-                <p class="text-sm text-slate-400 mb-3">
+                <p class="text-sm text-slate-400 mb-4">
                     Freelance & Personal Projects • 2023 - Present
                 </p>
 
                 <p class="text-slate-300 leading-relaxed">
-                    Designed and developed ESP32-based IoT systems, automation devices,
-                    smart controllers, Bluetooth applications, and sensor integration projects.
+                    Designed and developed ESP32-based IoT systems, smart automation
+                    devices, Bluetooth applications, and sensor integration projects.
                     Worked extensively with Arduino IDE, BLE communication, RTC modules,
-                    OLED/TFT displays, and smart embedded solutions.
+                    OLED/TFT displays, and intelligent embedded solutions.
                 </p>
+
             </div>
+
         </div>
 
         <!-- Experience 2 -->
-        <div class="mb-10 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
 
-            <div class="md:w-5/12 p-6 bg-slate-800 rounded-xl shadow-lg card-hover">
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
                 <h4 class="text-xl font-bold mb-2 text-secondary">
                     PCB Design Engineer
                 </h4>
 
-                <p class="text-sm text-slate-400 mb-3">
+                <p class="text-sm text-slate-400 mb-4">
                     VELINO Hardware Projects • 2023 - Present
                 </p>
 
@@ -409,22 +760,34 @@ class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center">
                     Experienced in schematic design, routing, component selection,
                     prototyping, and hardware optimization.
                 </p>
+
             </div>
 
-            <div class="md:w-5/12"></div>
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-secondary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
         </div>
 
         <!-- Experience 3 -->
-        <div class="mb-10 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
 
-            <div class="md:w-5/12"></div>
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
 
-            <div class="md:w-5/12 p-6 bg-slate-800 rounded-xl shadow-lg card-hover">
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
                 <h4 class="text-xl font-bold mb-2 text-primary">
                     Full Stack & Software Developer
                 </h4>
 
-                <p class="text-sm text-slate-400 mb-3">
+                <p class="text-sm text-slate-400 mb-4">
                     VELINO IDE & Software Projects • 2023 - Present
                 </p>
 
@@ -432,247 +795,651 @@ class="px-6 py-3 rounded-full btn-primary font-medium inline-flex items-center">
                     Built desktop and web applications using Electron.js, Node.js,
                     JavaScript, HTML, and CSS. Developed modern UI systems,
                     serial communication tools, and embedded software interfaces
-                    for IoT ecosystems.
+                    for IoT ecosystems and developer platforms.
                 </p>
+
             </div>
+
         </div>
 
         <!-- Experience 4 -->
-        <div class="mb-10 flex flex-col md:flex-row justify-between items-center w-full timeline-item">
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
 
-            <div class="md:w-5/12 p-6 bg-slate-800 rounded-xl shadow-lg card-hover">
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
                 <h4 class="text-xl font-bold mb-2 text-secondary">
                     Mobile App Developer
                 </h4>
 
-                <p class="text-sm text-slate-400 mb-3">
+                <p class="text-sm text-slate-400 mb-4">
                     Android Application Projects • 2022 - Present
                 </p>
 
                 <p class="text-slate-300 leading-relaxed">
                     Developed Android applications including VADDI Calculator,
-                    smart automation controllers, and Bluetooth-based applications
+                    smart automation controllers, and Bluetooth-based mobile apps
                     using MIT App Inventor and modern mobile UI principles.
                 </p>
+
             </div>
 
-            <div class="md:w-5/12"></div>
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-secondary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
         </div>
 
     </div>
+
 </div>
-    </section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
     
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+<!-- End Experience Section -->
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-dark">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">Technical Skills</h3>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">HTML/CSS</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">JavaScript</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Java</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Node.js</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">Professional Skills</h3>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Communication</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Teamwork</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Problem Solving</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">Creativity</span>
-                                <span>75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Tools & Technologies -->
-            <!-- Tools & Technologies -->
-<div class="mt-16">
+<!-- =============================== -->
+<!-- SMALLER INTERACTIVE SKILLS TREE -->
+<!-- =============================== -->
 
-    <h3 class="text-2xl font-bold mb-8 text-center">
-        Tools & <span class="gradient-text">Technologies</span>
-    </h3>
+<section id="skills"
+class="py-20 bg-transpart overflow-hidden">
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+    <div class="max-w-6xl mx-auto px-6">
 
-        <!-- HTML -->
-        <div onclick="showTech('HTML','Experienced in building responsive and semantic web pages using modern HTML5 standards.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <!-- TITLE -->
+        <div class="text-center mb-16">
 
-            <i class="fab fa-html5 text-4xl text-orange-500 mb-2"></i>
-            <span>HTML</span>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
+                Skills <span class="text-cyan-400">Architecture</span>
+            </h2>
+
+            <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Interactive visualization of my technical expertise,
+                embedded systems knowledge, software development,
+                robotics, and innovation capabilities.
+            </p>
+
         </div>
 
-        <!-- CSS -->
-        <div onclick="showTech('CSS','Skilled in modern CSS, Flexbox, Grid, animations, responsive layouts, and Tailwind CSS.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <!-- MAIN -->
+        <div class="flex flex-col items-center relative">
 
-            <i class="fab fa-css3-alt text-4xl text-blue-500 mb-2"></i>
-            <span>CSS</span>
+            <!-- MAIN NODE -->
+            <div class="main-node">
+
+                <i class="fas fa-brain text-3xl text-cyan-300 mb-3"></i>
+
+                <h3 class="text-xl font-bold text-white">
+                    Shiva Velishoju
+                </h3>
+
+                <p class="text-slate-300 text-sm mt-1">
+                    Embedded Systems Engineer
+                </p>
+
+            </div>
+
+            <!-- LINE -->
+            <div class="w-1 h-14 bg-cyan-500/40"></div>
+
+            <!-- TOP BRANCH -->
+            <div class="hidden lg:block branch-line"></div>
+
+            <!-- GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
+
+                <!-- CARD 1 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-cyan-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Embedded Systems',
+                    'Experienced in Arduino, ESP32, sensor integration, automation systems, firmware development, and embedded hardware prototyping.'
+                    )">
+
+                        <div class="skill-icon bg-cyan-500/20">
+                            <i class="fas fa-microchip text-cyan-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Embedded Systems
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>Arduino</li>
+                            <li>ESP32</li>
+                            <li>IoT Devices</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-purple-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Software Development',
+                    'Built desktop apps, responsive websites, Electron.js software, modern UI systems, and Node.js based applications.'
+                    )">
+
+                        <div class="skill-icon bg-purple-500/20">
+                            <i class="fas fa-code text-purple-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Software Development
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>JavaScript</li>
+                            <li>Electron.js</li>
+                            <li>Node.js</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-green-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Robotics & AI',
+                    'Developed AI robots, delivery robots, surveillance robots, robotic hands, and intelligent automation systems.'
+                    )">
+
+                        <div class="skill-icon bg-green-500/20">
+                            <i class="fas fa-robot text-green-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Robotics & AI
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>Robotics</li>
+                            <li>ADAS</li>
+                            <li>Automation</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+
+<!-- =============================== -->
+<!-- POPUP MODAL -->
+<!-- =============================== -->
+
+<div id="skillPopup"
+class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+
+    <div class="popup-box">
+
+        <button onclick="closeSkill()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+        <i class="fas fa-bolt text-cyan-400 text-4xl mb-5"></i>
+
+        <h2 id="popupTitle"
+        class="text-2xl font-bold text-white mb-4 text-center">
+        </h2>
+
+        <p id="popupDescription"
+        class="text-slate-300 text-center leading-relaxed">
+        </p>
+
+    </div>
+
+</div>
+
+<!-- =============================== -->
+<!-- JAVASCRIPT -->
+<!-- =============================== -->
+
+<script>
+
+function openSkill(title, description){
+
+    document.getElementById("popupTitle").innerText = title;
+
+    document.getElementById("popupDescription").innerText = description;
+
+    document.getElementById("skillPopup").classList.remove("hidden");
+
+    document.getElementById("skillPopup").classList.add("flex");
+
+}
+
+function closeSkill(){
+
+    document.getElementById("skillPopup").classList.add("hidden");
+
+    document.getElementById("skillPopup").classList.remove("flex");
+
+}
+
+</script>
+
+<!-- =============================== -->
+<!-- CSS -->
+<!-- =============================== -->
+
+<style>
+
+.main-node{
+
+    width:280px;
+
+    padding:30px 20px;
+
+    border-radius:25px;
+
+    background:linear-gradient(145deg,#0f172a,#111827);
+
+    border:1px solid rgba(34,211,238,0.25);
+
+    text-align:center;
+
+    box-shadow:
+    0 0 35px rgba(34,211,238,0.12);
+
+    z-index:10;
+
+}
+
+.branch-line{
+
+    position:absolute;
+
+    top:170px;
+
+    width:69%;
+
+    height:2px;
+
+    background:#22d3ee55;
+
+    border-radius:10px;
+
+}
+
+.top-line{
+
+    position:absolute;
+
+    top:-47px;
+
+    width:2px;
+
+    height:50px;
+
+}
+
+.skill-card{
+
+    width:100%;
+
+    max-width:260px;
+
+    padding:25px 20px;
+
+    border-radius:24px;
+
+    background:linear-gradient(145deg,#0f172a,#111827);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    cursor:pointer;
+
+    transition:0.4s ease;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.3);
+
+}
+
+.skill-card:hover{
+
+    transform:translateY(-8px) scale(1.02);
+
+    border-color:rgba(34,211,238,0.4);
+
+    box-shadow:
+    0 15px 35px rgba(34,211,238,0.15);
+
+}
+
+.skill-icon{
+
+    width:65px;
+    height:65px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto auto 20px;
+
+    font-size:28px;
+
+}
+
+.skill-title{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.skill-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.skill-list li{
+
+    list-style:none;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.04);
+
+    color:#cbd5e1;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+/* POPUP */
+
+.popup-box{
+
+    width:100%;
+
+    max-width:420px;
+
+    background:#0f172a;
+
+    border-radius:28px;
+
+    padding:40px 30px;
+
+    border:1px solid rgba(34,211,238,0.2);
+
+    position:relative;
+
+    box-shadow:
+    0 0 40px rgba(34,211,238,0.15);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .main-node{
+
+        width:100%;
+
+        max-width:280px;
+
+    }
+
+    .skill-card{
+
+        max-width:100%;
+
+    }
+
+}
+
+</style>
+<!-- Tools & Technologies -->
+<div class="mt-10 px-4 md:px-8">
+
+    <!-- Section Title -->
+    <div class="text-center mb-12 ">
+
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            Tools & <span class="gradient-text">Technologies</span>
+        </h3>
+
+        <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Technologies, frameworks, and development tools I use to build
+            embedded systems, smart automation platforms, IoT applications,
+            and modern software experiences.
+        </p>
+
+    </div>
+
+    <!-- Technology Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 ">
+
+        <!-- HTML5 -->
+        <div onclick="showTech('HTML5','Experienced in building semantic, responsive, and modern web interfaces using HTML5 standards.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-orange-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-html5 text-5xl text-orange-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                HTML5
+            </span>
+
+        </div>
+
+        <!-- CSS3 -->
+        <div onclick="showTech('CSS3','Skilled in modern CSS, Flexbox, Grid systems, Tailwind CSS, animations, and responsive design.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-blue-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                CSS3
+            </span>
+
         </div>
 
         <!-- JavaScript -->
         <div onclick="showTech('JavaScript','Built dynamic web applications, dashboards, and interactive UI systems using JavaScript.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-yellow-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-js text-4xl text-yellow-400 mb-2"></i>
-            <span>JavaScript</span>
+            <i class="fab fa-js-square text-5xl text-yellow-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                JavaScript
+            </span>
+
         </div>
 
         <!-- Java -->
-        <div onclick="showTech('Java','Knowledge in Java programming, OOP concepts, and backend fundamentals.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('Java','Knowledge in Java programming, OOP concepts, backend logic, and application development.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-red-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-react text-4xl text-blue-400 mb-2"></i>
-            <span>Java</span>
+            <i class="fab fa-java text-5xl text-red-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Java
+            </span>
+
         </div>
 
         <!-- Node.js -->
-        <div onclick="showTech('Node.js','Used Node.js in Electron.js desktop applications and backend development projects.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('Node.js','Used Node.js for backend systems, Electron.js applications, APIs, and desktop software development.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-green-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-node-js text-4xl text-green-500 mb-2"></i>
-            <span>Node.js</span>
-        </div>
+            <i class="fab fa-node-js text-5xl text-green-500 mb-4 group-hover:scale-110 transition"></i>
 
-        <!-- Manual Testing -->
-        <div onclick="showTech('Manual Testing','Certified in manual testing with experience in test cases, debugging, and software validation.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+            <span class="font-medium text-slate-200">
+                Node.js
+            </span>
 
-            <i class="fas fa-database text-4xl text-blue-300 mb-2"></i>
-            <span>Manual Testing</span>
-        </div>
-
-        <!-- PCB -->
-        <div onclick="showTech('PCB Design','Designed custom PCB boards using EasyEDA for IoT, robotics, and embedded system projects.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
-
-            <i class="fab fa-git-alt text-4xl text-orange-600 mb-2"></i>
-            <span>PCB</span>
-        </div>
-
-        <!-- npm -->
-        <div onclick="showTech('npm','Used npm for managing Node.js packages and project dependencies.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
-
-            <i class="fab fa-npm text-4xl text-red-500 mb-2"></i>
-            <span>npm</span>
         </div>
 
         <!-- Electron.js -->
-        <div onclick="showTech('Electron.js','Developed desktop applications including VELINO IDE using Electron.js and Node.js.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('Electron.js','Developed modern desktop applications including VELINO IDE using Electron.js and Node.js.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-cyan-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-sass text-4xl text-pink-500 mb-2"></i>
-            <span>Electron.js</span>
+            <i class="fas fa-desktop text-5xl text-cyan-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Electron.js
+            </span>
+
+        </div>
+
+        <!-- Arduino -->
+        <div onclick="showTech('Arduino','Experienced in Arduino-based embedded systems, automation projects, and sensor integration.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-teal-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-microchip text-5xl text-teal-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Arduino
+            </span>
+
+        </div>
+
+        <!-- ESP32 -->
+        <div onclick="showTech('ESP32','Built IoT and smart automation systems using ESP32, BLE, WiFi, and real-time communication.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-indigo-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-wifi text-5xl text-indigo-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                ESP32
+            </span>
+
+        </div>
+
+        <!-- PCB Design -->
+        <div onclick="showTech('PCB Design','Designed custom PCB boards using EasyEDA for IoT, gaming, robotics, and embedded systems.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-orange-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-project-diagram text-5xl text-orange-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                PCB Design
+            </span>
+
         </div>
 
         <!-- MIT App Inventor -->
-        <div onclick="showTech('MIT App Inventor','Built Android applications including automation controllers and finance apps.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('MIT App Inventor','Developed Android applications for automation systems, finance tools, and Bluetooth controllers.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-purple-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-figma text-4xl text-purple-500 mb-2"></i>
-            <span>MIT App Inventor</span>
+            <i class="fas fa-mobile-alt text-5xl text-purple-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                MIT App Inventor
+            </span>
+
         </div>
 
         <!-- VS Code -->
-        <div onclick="showTech('VS Code','Primary development environment for coding web apps, embedded systems, and IoT projects.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('VS Code','Primary development environment for software development, embedded systems, and web technologies.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-blue-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fas fa-terminal text-4xl text-gray-300 mb-2"></i>
-            <span>VS Code</span>
+            <i class="fas fa-code text-5xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                VS Code
+            </span>
+
         </div>
 
         <!-- EasyEDA -->
-        <div onclick="showTech('EasyEDA PCB','Used EasyEDA for schematic capture, PCB routing, and hardware prototyping.')"
-        class="flex flex-col items-center p-6 bg-slate-800 rounded-lg card-hover cursor-pointer">
+        <div onclick="showTech('EasyEDA','Used EasyEDA for schematic design, PCB routing, circuit simulation, and hardware prototyping.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-green-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
 
-            <i class="fab fa-linux text-4xl text-white mb-2"></i>
-            <span>EasyEDA PCB</span>
+            <i class="fas fa-drafting-compass text-5xl text-green-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                EasyEDA
+            </span>
+
         </div>
 
     </div>
+
 </div>
+ <div class="text-center mb-12 ">
+
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">
+             <span class="gradient-text"></span>
+        </h3>
+
+        <!-- <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Technologies, frameworks, and development tools I use to build
+            embedded systems, smart automation platforms, IoT applications,
+            and modern software experiences.
+        </p> -->
+
+    </div>
 
 <!-- Modal -->
 <div id="techModal"
@@ -720,403 +1487,521 @@ class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
         }
         
         </script>
+        <!-- SECTION DIVIDER -->
+ <div class="flex items-center justify-center my-2 bg-darker">
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+
+    <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+        velino
+    </span>
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+
+</div>
     
-  <!-- Projects Section -->
-<section id="projects" class="py-20 bg-darker">
-    <div class="container mx-auto px-6">
+<!-- PROJECTS SECTION -->
+<section id="projects" class="py-20 bg-transpart">
+
+    <div class="container mx-auto px-6 ">
+
+        <!-- HEADING -->
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
                 My <span class="gradient-text">Projects</span>
             </h2>
+
             <p class="text-slate-400 max-w-2xl mx-auto">
-                Innovative embedded systems, IoT devices, software applications, and smart automation projects developed under the VELINO ecosystem.
+                Innovative embedded systems, IoT devices, robotics, automation,
+                and software applications developed under the VELINO ecosystem.
             </p>
-            <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
+
+            <div class="w-74 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-5 rounded-full"></div>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- GRID -->
+        <div class=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <!-- Project 1 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'VELINO IDE',
-'A custom lightweight development environment built for embedded systems and IoT projects with serial monitoring, board management, and modern UI support.',
-'Electron.js, Node.js, Embedded Systems',
-'https://i.postimg.cc/qv6pHgjq/velino-ide.png',
-'#',
-'#'
-)">
-                <div class="h-64 overflow-hidden">
+            <!-- PROJECT 1 -->
+            <div class="project-card group"
+            onclick="openProject(
+                'VELINO IDE',
+                
+                'VELINO IDE is a modern custom development environment designed for embedded systems, IoT development, and smart hardware programming. Built using Electron.js and Node.js, the IDE provides a lightweight yet powerful platform for developing, compiling, uploading, and monitoring embedded applications with an intuitive futuristic interface. The IDE simplifies embedded workflows by combining code editing, serial communication, project management, and hardware integration into one unified platform. Features include Arduino & ESP32 support, integrated Serial Monitor, syntax highlighting, project management tools, Arduino CLI integration, custom themes, smooth animations, and optimized performance for IoT and robotics development.',
+                
+                'Electron.js, Node.js, JavaScript, HTML5, CSS3, Arduino CLI, Monaco Editor, SerialPort',
+                
+                'https://i.postimg.cc/qv6pHgjq/velino-ide.png',
+                
+                '#',
+                '#'
+                )">
+
+                <div class="h-72 overflow-hidden bg-black">
                     <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
                          alt="VELINO IDE"
-                         class="w-full h-full object-cover">
+                         class="project-image">
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">VELINO IDE</h3>
-
-                    <p class="text-slate-400 mb-4">
-                        A custom lightweight development environment built for embedded systems and IoT projects with serial monitoring, board management, and modern UI support.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Electron.js</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Node.js</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Embedded Systems</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
+                <div class="p-5 text-center">
+                    <h3 class="project-title">VELINO IDE</h3>
                 </div>
+
             </div>
 
-            <!-- Project 2 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'VELINO BOARD',
-'A custom-designed smart development board integrating relays, Bluetooth, sensors, and automation modules for IoT and robotics applications.',
-'ESP32, PCB Design, IoT',
-'https://i.postimg.cc/NfzQnR7G/velino-board.png',
+             <!-- PROJECT 2 -->
+             <div class="project-card group"
+             onclick="openProject(
+                 'Bionic Hand',
+                 
+                 'Bionic Hand is an advanced robotic prosthetic hand designed using embedded systems, servo motor control, and sensor-based gesture recognition to mimic natural human hand movements. The project focuses on creating a smart robotic arm capable of performing precise finger movements, object gripping, and responsive motion control using real-time input signals. Developed for robotics, biomedical assistance, and automation research, the system demonstrates human-machine interaction through intelligent motion replication and embedded control technologies. The robotic hand integrates multiple servo motors, gesture sensing, wireless control capabilities, and programmable movement algorithms for realistic robotic functionality.',
+                 
+                 'Embedded Systems, Arduino, Servo Motors, Robotics, Gesture Control, Sensors',
+                 
+                 'https://i.postimg.cc/P5gCndvr/maxresdefault.jpg',
+                 
+                 '#',
+                 '#'
+                 )">
+ 
+                 <div class="h-72 overflow-hidden bg-black">
+                     <img src="https://i.postimg.cc/P5gCndvr/maxresdefault.jpg"
+                          alt="Bionic Hand"
+                          class="project-image">
+                 </div>
+ 
+                 <div class="p-5 text-center">
+                     <h3 class="project-title">Bionic Hand</h3>
+                 </div>
+ 
+             </div>
+
+
+              <!-- PROJECT 3 -->
+            <div class="project-card group"
+            onclick="openProject(
+'Master Slave Robotic Hand',
+
+'Master Slave Robotic Hand is a gesture-controlled robotic arm system designed to replicate real-time human hand movements using flex sensors and wireless communication technology. The master hand captures finger and motion gestures through sensor inputs, while the slave robotic hand accurately mirrors the same movements using servo motor control. The project demonstrates advanced human-machine interaction, embedded systems integration, and real-time robotics control for applications in automation, medical assistance, industrial robotics, and remote operation systems. The system focuses on precision movement, wireless synchronization, and intelligent robotic control architecture.',
+
+'Flex Sensors, Arduino, Servo Motors, Robotics, Wireless Communication, Embedded Systems',
+
+'https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp',
+
 '#',
 '#'
 )">
-                <div class="h-64 overflow-hidden">
+
+                <div class="h-72 overflow-hidden bg-black">
+                    <img src="https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp"
+                         alt="Master Slave Robotic Hand"
+                         class="project-image">
+                </div>
+
+                <div class="p-5 text-center">
+                    <h3 class="project-title">Master Slave Robotic Hand</h3>
+                </div>
+
+            </div>
+  <!-- PROJECT 4 -->
+  <div class="project-card group"
+  onclick="openProject(
+      'VELINO MECANUM SURVEILLANCE ROBOT',
+      
+      'VELINO MECANUM SURVEILLANCE ROBOT is an advanced omni-directional robotic surveillance system designed for intelligent monitoring, security inspection, and autonomous movement applications. Built using mecanum wheels, the robot can move smoothly in all directions including sideways, diagonal, and rotational movement, enabling high-precision navigation in complex environments. The system integrates wireless live monitoring, obstacle detection, real-time control, and smart robotic navigation for industrial, security, and research applications. Developed using embedded systems and IoT technologies, the project demonstrates intelligent robotics engineering, surveillance automation, and futuristic mobility control systems.',
+      
+      ' Mecanum Wheels, Robotics, Surveillance Systems, Embedded Systems, IoT, Automation',
+      
+      'https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png',
+      
+      '#',
+      '#'
+      )">
+
+      <div class="h-72 overflow-hidden bg-black">
+          <img src="https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png"
+               alt="Mecanum Robot"
+               class="project-image">
+      </div>
+
+      <div class="p-5 text-center">
+          <h3 class="project-title">VELINO MECANUM SURVEILLANCE ROBOT</h3>
+      </div>
+
+  </div>
+
+ <!-- PROJECT 5 -->
+ <div class="project-card group rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 cursor-pointer"
+ onclick="openProject(
+ 'VELINO FOOD DELIVERY ROBOT',
+ 
+ 'VELINO FOOD DELIVERY ROBOT is an autonomous smart robotic delivery system designed for restaurants, hospitals, hotels, and smart environments to enable efficient contactless delivery. The robot is capable of intelligent navigation, obstacle avoidance, wireless control, and tray-based item transportation using embedded systems and sensor-driven automation. Built to improve modern service automation, the system integrates motor control, real-time movement monitoring, and smart robotic interaction for seamless indoor delivery operations. The project demonstrates robotics engineering, IoT communication, automation technologies, and intelligent mobility systems for futuristic smart service applications.',
+ 
+ 'ESP32, Robotics, Automation, Sensors, Motor Drivers, Embedded Systems, IoT',
+ 
+ 'https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png',
+ 
+ '#',
+ '#'
+ )">
+ 
+     <!-- IMAGE CONTAINER -->
+     <div class="h-72 w-full bg-black overflow-hidden flex items-center justify-center">
+ 
+         <img src="https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png"
+              alt="Food Delivery Robot"
+              class="w-full h-full object-contain group-hover:scale-105 transition duration-500 p-2">
+ 
+     </div>
+ 
+     <!-- CONTENT -->
+     <div class="p-5 text-center">
+ 
+         <h3 class="text-xl font-bold text-white mb-3">
+             VELINO FOOD DELIVERY ROBOT
+         </h3>
+ 
+        
+ 
+    
+ 
+     </div>
+ 
+ </div>
+  <!-- PROJECT 5 -->
+  <div class="project-card group"
+  onclick="openProject(
+'VELINO AIRPAD',
+
+'VELINO AIRPAD is a custom wireless gaming controller developed using ESP32 technology for mobile, PC, and IoT-based gaming applications. Designed with ergonomic controls and low-latency Bluetooth communication, the AirPad delivers smooth and responsive gameplay experiences. The project integrates joystick modules, multiple control buttons, wireless BLE connectivity, rechargeable power management, and custom PCB design to create a compact futuristic gaming device. VELINO AIRPAD demonstrates embedded systems engineering, wireless communication, and real-time interactive control for smart gaming and robotics applications.',
+
+'ESP32, BLE, Gamepad Development, Embedded Systems, PCB Design, Joystick Control',
+
+'https://i.postimg.cc/yYFR6gB1/IMG-3239.avif',
+
+'#',
+'#'
+)">
+
+      <div class="h-72 overflow-hidden bg-black">
+          <img src="https://i.postimg.cc/yYFR6gB1/IMG-3239.avif"
+               alt="VELINO AIRPAD"
+               class="project-image">
+      </div>
+
+      <div class="p-5 text-center">
+          <h3 class="project-title">VELINO AIRPAD</h3>
+      </div>
+
+  </div>
+
+ 
+            <!-- PROJECT 7 -->
+            <div class="project-card group"
+            onclick="openProject(
+'VELINO BOARD',
+
+'VELINO BOARD is a custom-designed smart embedded development board created for IoT, robotics, automation, and intelligent hardware applications. The board integrates multiple modules including relay control, Bluetooth communication, sensor interfaces, power management, and GPIO expansion into a single compact platform. Designed to simplify rapid prototyping and real-world hardware development, VELINO BOARD supports wireless automation, sensor monitoring, robotics control, and smart home applications. The system is optimized for ESP32-based projects with efficient PCB layout, stable power delivery, and modular hardware architecture for future expansion.',
+
+'ESP32, PCB Design, IoT, Embedded Systems, Bluetooth, Relay Control, Sensors, Robotics',
+
+'https://i.postimg.cc/NfzQnR7G/velino-board.png',
+
+'#',
+'#'
+)">
+
+                <div class="h-72 overflow-hidden bg-black">
                     <img src="https://i.postimg.cc/NfzQnR7G/velino-board.png"
                          alt="VELINO BOARD"
-                         class="w-full h-full object-cover">
+                         class="project-image">
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">VELINO BOARD</h3>
-
-                    <p class="text-slate-400 mb-4">
-                        A custom-designed smart development board integrating relays, Bluetooth, sensors, and automation modules for IoT and robotics applications.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ESP32</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">PCB Design</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">IoT</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
+                <div class="p-5 text-center">
+                    <h3 class="project-title">VELINO BOARD</h3>
                 </div>
+
             </div>
 
-            <!-- Project 3 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'VELINO AIRPAD',
-'A wireless Bluetooth gaming controller designed using ESP32 with joystick controls, multiple gaming modes, and mobile/PC connectivity.',
-'ESP32, BLE, Gamepad',
-'https://i.postimg.cc/13Vy14Jm/velino-airpad.png',
-'#',
-'#'
-)">
-                <div class="h-64 overflow-hidden">
-                    <img src=" https://i.postimg.cc/13Vy14Jm/velino-airpad.png"
-                         alt="VELINO AIRPAD"
-                         class="w-full h-full object-cover">
-                </div>
+            
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">VELINO AIRPAD</h3>
+           
+            <!-- PROJECT 5 -->
+            <div class="project-card group"
+            onclick="openProject(
+                'VADDI Calculator App',
+                
+                'VADDI Calculator is a smart finance and interest calculation application developed to simplify EMI, loan, and monthly interest calculations with a clean and user-friendly mobile interface. The application supports both Telugu and English languages, making financial calculations easier and more accessible for regional users. Built using MIT App Inventor, the app includes features such as simple interest calculation, monthly EMI estimation, Indian number formatting, quick finance utilities, and responsive mobile interaction. The project focuses on creating practical financial tools with simple UI design and efficient performance for everyday users.',
+                
+                'MIT App Inventor, Android Development, Finance Application, UI Design, Mobile App Development',
+                
+                'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop',
+                
+                '#',
+                '#'
+                )">
 
-                    <p class="text-slate-400 mb-4">
-                        A wireless Bluetooth gaming controller designed using ESP32 with joystick controls, multiple gaming modes, and mobile/PC connectivity.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ESP32</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">BLE</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Gamepad</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'VADDI Calculator App',
-'A smart interest calculation application designed for EMI, loan, and monthly finance calculations with Telugu and English support.',
-'MIT App Inventor, Android, Finance App',
-'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop',
-'#',
-'#'
-)">
-                <div class="h-64 overflow-hidden">
+                <div class="h-72 overflow-hidden bg-black">
                     <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop"
                          alt="VADDI Calculator App"
-                         class="w-full h-full object-cover">
+                         class="project-image">
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">VADDI Calculator App</h3>
-
-                    <p class="text-slate-400 mb-4">
-                        A smart interest calculation application designed for easy EMI, loan, and financial calculations with a clean and simple mobile interface.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">MIT App Inventor</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Android</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Finance App</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
+                <div class="p-5 text-center">
+                    <h3 class="project-title">VADDI Calculator App</h3>
                 </div>
+
             </div>
 
-            <!-- Project 5 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'VELINO C3 AI PET BOT',
-'An AI-inspired desktop companion powered by ESP32-C3 featuring animated OLED eyes, smart notifications, and environmental monitoring.',
-'ESP32-C3, OLED Display, AI Companion',
-'https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg',
-'#',
-'#'
-)">
-                <div class="h-64 overflow-hidden">
+            <!-- PROJECT 6 -->
+            <div class="project-card group"
+            onclick="openProject(
+                'VELINO C3 AI PET BOT',
+                
+                'VELINO C3 AI PET BOT is an AI-inspired smart desktop companion built using the ESP32-C3 microcontroller. The project features animated OLED eyes, interactive expressions, environmental monitoring, smart notifications, and real-time responsive behaviors to create an engaging robotic companion experience. Designed as a futuristic embedded AI device, the system combines intelligent animations, sensor integration, wireless communication, and compact hardware design. The bot is capable of displaying emotions, reacting to user interaction, monitoring environmental conditions, and serving as a smart IoT desktop assistant for modern automation ecosystems.',
+                
+                'ESP32-C3, OLED Display, Embedded Systems, IoT, AI Companion, Animation Systems',
+                
+                'https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg',
+                
+                '#',
+                '#'
+                )">
+
+                <div class="h-72 overflow-hidden bg-black">
                     <img src="https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg"
                          alt="VELINO C3 AI PET BOT"
-                         class="w-full h-full object-cover">
+                         class="project-image">
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">VELINO C3 AI PET BOT</h3>
-
-                    <p class="text-slate-400 mb-4">
-                        An AI-inspired desktop companion powered by ESP32-C3 featuring animated OLED eyes, environmental monitoring, smart notifications, and interactive expressions.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ESP32-C3</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">OLED Display</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">AI Companion</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
+                <div class="p-5 text-center">
+                    <h3 class="project-title">VELINO C3 AI </h3>
                 </div>
+
             </div>
 
-          <!-- Project 5 - Bionic Hand -->
-          <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-          onclick="openProject(
-          'Bionic Hand',
-          'An advanced robotic prosthetic hand developed using sensors and embedded systems to mimic real hand movements with gesture-based control and precision motion.',
-          'Embedded Systems, Servo Motors, Arduino',
-          'https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=1470&auto=format&fit=crop',
-          '#',
-          '#'
-          )">
-    <div class="h-64 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=1470&auto=format&fit=crop"
-             alt="Bionic Hand"
-             class="w-full h-full object-cover">
-    </div>
+           
+           
 
-    <div class="p-6">
-        <h3 class="text-xl font-bold mb-2">Bionic Hand</h3>
+            <!-- PROJECT 8 -->
+            <div class="project-card group"
+            onclick="openProject(
+                'Zone Based Advanced Driver Assistance System',
+                
+                'Zone Based Advanced Driver Assistance System (ADAS) is an intelligent vehicle safety and automation system developed to improve driver awareness, obstacle detection, and road safety using embedded sensors and smart decision-making algorithms. The system continuously monitors multiple vehicle zones including blind spots, front collision areas, and surrounding obstacles to provide real-time alerts and automated assistance. Designed for smart mobility and automotive safety applications, the project integrates ultrasonic sensors, IoT communication, automation logic, and embedded processing to create a reliable driver assistance platform. The system enhances navigation safety, collision prevention, and intelligent vehicle monitoring in real-world driving environments.',
+                
+                'ADAS, Embedded Systems, IoT,  Robotics, Vehicle Safety Systems, Smart Mobility',
+                
+                'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop',
+                
+                '#',
+                '#'
+                )">
 
-        <p class="text-slate-400 mb-4">
-            An advanced robotic prosthetic hand developed using sensors and embedded systems to mimic real hand movements with gesture-based control and precision motion.
-        </p>
-
-        <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Embedded Systems</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Servo Motors</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Arduino</span>
-        </div>
-
-        <div class="flex space-x-3">
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fab fa-github"></i> Code
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Project 6 - Master Slave Robotic Hand -->
-<div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'Master Slave Robotic Hand',
-'A gesture-controlled robotic hand system where the slave robotic arm replicates the real-time movements of the master hand using flex sensors and wireless communication.',
-'Flex Sensors, Wireless Control, Robotics',
-'https://i.postimg.cc/fW2ngS1B/Whats-App-Image-2024-01-12-at-12-58-08-PM.jpg',
-'#',
-'#'
-)">
-    <div class="h-64 overflow-hidden">
-        <img src="https://i.postimg.cc/fW2ngS1B/Whats-App-Image-2024-01-12-at-12-58-08-PM.jpg"
-             alt="Master Slave Robotic Hand"
-             class="w-full h-full object-cover">
-    </div>
-
-    <div class="p-6">
-        <h3 class="text-xl font-bold mb-2">Master Slave Robotic Hand</h3>
-
-        <p class="text-slate-400 mb-4">
-            A gesture-controlled robotic hand system where the slave robotic arm replicates the real-time movements of the master hand using flex sensors and wireless communication.
-        </p>
-
-        <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Flex Sensors</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Wireless Control</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Robotics</span>
-        </div>
-
-        <div class="flex space-x-3">
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fab fa-github"></i> Code
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Project 7 - ADAS -->
-<div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'Zone Based Advanced Driver Assistance System',
-'A smart vehicle safety system designed to detect obstacles, monitor blind zones, and provide intelligent driver assistance using sensors and AI-based decision logic.',
-'ADAS, IoT, Automation',
-'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop',
-'#',
-'#'
-)">
-    <div class="h-64 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop"
-             alt="Zone Based ADAS"
-             class="w-full h-full object-cover">
-    </div>
-
-    <div class="p-6">
-        <h3 class="text-xl font-bold mb-2">Zone Based Advanced Driver Assistance System</h3>
-
-        <p class="text-slate-400 mb-4">
-            A smart vehicle safety system designed to detect obstacles, monitor blind zones, and provide intelligent driver assistance using sensors and AI-based decision logic.
-        </p>
-
-        <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ADAS</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">IoT</span>
-            <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Automation</span>
-        </div>
-
-        <div class="flex space-x-3">
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-
-            <a href="#" class="text-primary hover:text-secondary">
-                <i class="fab fa-github"></i> Code
-            </a>
-        </div>
-    </div>
-</div>
-
-            <!-- Project 6 -->
-            <div class="project-card rounded-xl overflow-hidden card-hover cursor-pointer"
-onclick="openProject(
-'Smart Medicine Reminder',
-'An IoT-based medicine reminder system using ESP32, RTC, display modules, and mobile alerts to help users take medicines on time from anywhere.',
-'ESP32, IoT, Healthcare',
-'https://i.postimg.cc/PqzsdDDg/medicine-reminder.jpg',
-'#',
-'#'
-)">
-                <div class="h-64 overflow-hidden">
-                    <img src=" https://i.postimg.cc/PqzsdDDg/medicine-reminder.jpg"
-                         alt="Smart Medicine Reminder"
-                         class="w-full h-full object-cover">
+                <div class="h-72 overflow-hidden bg-black">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop"
+                         alt="ADAS"
+                         class="project-image">
                 </div>
 
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">Smart Medicine Reminder</h3>
-
-                    <p class="text-slate-400 mb-4">
-                        An IoT-based medicine reminder system using ESP32, RTC, display modules, and mobile alerts to help users take medicines on time from anywhere.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ESP32</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">IoT</span>
-                        <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Healthcare</span>
-                    </div>
-
-                    <div class="flex space-x-3">
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-
-                        <a href="#" class="text-primary hover:text-secondary">
-                            <i class="fab fa-github"></i> Code
-                        </a>
-                    </div>
+                <div class="p-5 text-center">
+                    <h3 class="project-title">Zone Based ADAS</h3>
                 </div>
+
+            </div>
+
+           
+           
+            <!-- PROJECT 11 -->
+            <div class="project-card group"
+            onclick="openProject(
+'ESP32 C3 MAP NAVIGATOR',
+
+'ESP32 C3 MAP NAVIGATOR is a smart navigation and location tracking system developed using the ESP32-C3 microcontroller for robotics, smart mobility, and IoT-based navigation applications. The system integrates GPS technology, digital map guidance, real-time location tracking, and wireless communication to provide intelligent navigation support for autonomous systems and embedded devices. Designed for smart robotics and mobility platforms, the project enables route monitoring, location visualization, and navigation assistance with efficient low-power embedded processing. The system demonstrates advanced IoT integration, GPS-based positioning, and real-time navigation control for futuristic automation and mapping solutions.',
+
+
+'https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp',
+
+'#',
+'#'
+)">
+
+                <div class="h-72 overflow-hidden bg-black">
+                    <img src="https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp"
+                         alt="Map Navigator"
+                         class="project-image">
+                </div>
+
+                <div class="p-5 text-center">
+                    <h3 class="project-title">ESP32 C3 MAP NAVIGATOR</h3>
+                </div>
+
+            </div>
+
+            <!-- PROJECT 12 -->
+            <div class="project-card group"
+            onclick="openProject(
+            'Smart Medicine Reminder',
+'The Smart Medicine Reminder is an IoT-based healthcare solution designed to help users take medicines on time through smart alerts, automated scheduling, and real-time monitoring. Built using ESP32 technology, the system integrates RTC modules, buzzer alerts, display interfaces, and mobile connectivity to provide accurate reminders and improve medication management. The project focuses on healthcare automation, smart notifications, and user-friendly operation for elderly people and patients requiring regular medication schedules.',
+'ESP32, IoT, RTC Module, Healthcare Automation, Embedded Systems, Sensors',
+'https://i.postimg.cc/Qtx900Wt/IMG-3411.avif',
+'#',
+'#'
+            )">
+
+                <div class="h-72 overflow-hidden bg-black">
+                    <img src="https://i.postimg.cc/Qtx900Wt/IMG-3411.avif"
+                         alt="Medicine Reminder"
+                         class="project-image">
+                </div>
+
+                <div class="p-5 text-center">
+                    <h3 class="project-title">Smart Medicine Reminder</h3>
+                </div>
+
             </div>
 
         </div>
 
-        <div class="text-center mt-12">
-            <!-- <a href="#"
-               class="px-8 py-3 rounded-full btn-primary font-medium inline-flex items-center">
-                Explore More Projects
-                <i class="fas fa-arrow-right ml-2"></i>
-            </a> -->
-        </div>
     </div>
+
+</section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+
+<!-- CSS -->
+<style>
+
+.project-card{
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.project-card:hover{
+    transform: translateY(-10px);
+    border-color: rgba(34,211,238,0.5);
+    box-shadow: 0 20px 40px rgba(34,211,238,0.15);
+}
+
+.project-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.project-card:hover .project-image{
+    transform: scale(1.08);
+}
+
+.project-title{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+</style>
+       <!-- DEMO PLAY SECTION -->
+<section id="demoplay" class="py-20 bg-darker">
+
+    <div class="container mx-auto px-4">
+
+        <!-- TITLE -->
+        <div class="text-center mb-14">
+
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
+                Demo <span class="gradient-text">Play</span>
+            </h2>
+
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Watch live demonstrations of VELINO embedded systems,
+                robotics, automation projects, and smart technologies.
+            </p>
+
+        </div>
+
+        <!-- VIDEO GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- VIDEO 1 -->
+            <div class="rounded-3xl overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 bg-slate-900">
+
+                <!-- VIDEO -->
+                <div class="relative w-full overflow-hidden"
+                     style="padding-top:56.25%;">
+
+                    <iframe
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/bep22XwNepc?autoplay=1&mute=1&rel=0"
+                        title="VELINO FOOD DELIVERY ROBOT"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+            </div>
+
+            <!-- VIDEO 2 -->
+            <div class="rounded-3xl overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 bg-slate-900">
+
+                <!-- VIDEO -->
+                <div class="relative w-full overflow-hidden"
+                     style="padding-top:56.25%;">
+
+                    <iframe
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&rel=0&controls=1&loop=1&playlist=aqz-KE-bpKQ"
+                        title="VELINO PROJECT DEMO"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+    </div>
+
 </section>
 
+ <!-- SECTION DIVIDER -->
+ <div class="flex items-center justify-center my-2">
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+
+    <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+        velino
+    </span>
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+
+</div>
 
     
     <!-- Contact Section -->
@@ -1177,12 +2062,6 @@ onclick="openProject(
                             <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/" class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600">
                                 <i class="fab fa-linkedin-in text-xl"></i>
                             </a>
-                            <!-- <a href="#" class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-400">
-                                <i class="fab fa-twitter text-xl"></i>
-                            </a> -->
-                            <!-- <a href="#" class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-pink-600">
-                                <i class="fab fa-dribbble text-xl"></i>
-                            </a> -->
 
                             <a href="https://wa.me/919963761162"
    target="_blank"
@@ -1274,49 +2153,207 @@ onclick="openProject(
     </section>
 
     
-    
-    <!-- Footer -->
-    <footer class="bg-darker py-12">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-2xl font-bold gradient-text">Portfolio</a>
-                    <p class="text-slate-400 mt-2">© 2026 shiva velishoju . All rights reserved.</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="#" class="text-slate-400 hover:text-primary transition">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="#" class="text-slate-400 hover:text-blue-600 transition">
-                        <i class="fab fa-linkedin-in text-xl"></i>
-                    </a>
-                    <!-- <a href="#" class="text-slate-400 hover:text-blue-400 transition">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-slate-400 hover:text-pink-600 transition">
-                        <i class="fab fa-dribbble text-xl"></i>
-                    </a> -->
+<!-- PROFESSIONAL FOOTER -->
+<footer class="bg-[#0b1120] border-t border-slate-800 pt-16 pb-8 relative overflow-hidden">
 
+    <!-- Background Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/10 blur-3xl rounded-full opacity-20"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+
+        <!-- TOP FOOTER -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12">
+
+            <!-- BRAND -->
+            <div>
+
+                <h2 class="text-3xl font-bold gradient-text mb-4">
+                    VELINO
+                </h2>
+
+                <p class="text-slate-400 leading-relaxed">
+                    Building futuristic embedded systems, IoT solutions,
+                    smart automation platforms, and modern software experiences
+                    that combine innovation with intelligent technology.
+                </p>
+
+            </div>
+
+            <!-- QUICK LINKS -->
+            <div>
+
+                <h3 class="text-xl font-semibold mb-5 text-white">
+                    Quick Links
+                </h3>
+
+                <ul class="space-y-3">
+
+                    <li>
+                        <a href="#home"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#about"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#Experience"
+                           class="text-slate-400 hover:text-primary transition duration-300">                
+                            Experience
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#skills"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Skills
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#projects"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Projects
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#contact"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- SOCIAL -->
+            <div>
+
+                <h3 class="text-xl font-semibold mb-5 text-white">
+                    Connect With Me
+                </h3>
+
+                <p class="text-slate-400 mb-6">
+                    Follow me on social platforms and stay connected
+                    for upcoming projects and innovations.
+                </p>
+
+                <div class="flex gap-4">
+
+                    <!-- GitHub -->
+                    <a href="#"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-primary transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-github text-lg"></i>
+
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-blue-600 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-linkedin-in text-lg"></i>
+
+                    </a>
+
+                    <!-- WhatsApp -->
                     <a href="https://wa.me/919963761162"
-   target="_blank"
-   class="text-slate-400 hover:text-green-500 transition">
-    
-    <i class="fab fa-whatsapp text-xl"></i>
-</a>
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-green-500 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-whatsapp text-lg"></i>
+
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-pink-600 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-instagram text-lg"></i>
+
+                    </a>
+
                 </div>
+
             </div>
-            
-            <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500">
-                <p>Made with <i class="fas fa-heart text-red-500"></i> and lots of <i class="fas fa-coffee text-amber-500"></i></p>
-            </div>
+
         </div>
-    </footer>
-    
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-lg hidden">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+
+        <!-- FOOTER BOTTOM -->
+<div class="border-t border-slate-800/80 mt-12 pt-8">
+
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-5">
+
+        <!-- COPYRIGHT -->
+        <div class="text-center lg:text-left">
+
+            <h4 class="text-lg font-semibold text-white mb-1">
+                Shiva Velishoju
+            </h4>
+
+            <p class="text-slate-500 text-sm">
+                © 2026 VELINO Technologies. All rights reserved.
+            </p>
+
+        </div>
+
+        <!-- CENTER TEXT -->
+        <div class="flex items-center gap-2 text-slate-400 text-sm text-center">
+
+            Crafted with
+            <i class="fas fa-heart text-red-500 animate-pulse"></i>
+            for futuristic embedded systems & smart software experiences
+
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="flex items-center gap-6 text-sm">
+
+            <a href="#home"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Home
+
+            </a>
+
+            <a href="#projects"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Projects
+
+            </a>
+
+            <a href="#contact"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Contact
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BACK TO TOP BUTTON -->
+<button id="back-to-top"
+class="fixed bottom-8 right-8 w-14 h-14 rounded-2xl bg-gradient-to-r from-primary to-secondary text-white shadow-2xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:scale-110 z-50">
+
+    <i class="fas fa-arrow-up text-lg"></i>
+
+</button>
     
     <script>
         // Mobile menu toggle
@@ -1491,54 +2528,198 @@ onclick="openProject(
     
     </script>
 
-    <!-- Project Modal -->
+<script>
+
+    const searchInput = document.getElementById("portfolioSearch");
+    
+    searchInput.addEventListener("keypress", function(e) {
+    
+        if (e.key === "Enter") {
+    
+            const value = searchInput.value.toLowerCase();
+    
+            // Match sections
+            if (value.includes("about")) {
+                document.querySelector("#about")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("skill")) {
+                document.querySelector("#skills")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("project")) {
+                document.querySelector("#projects")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("contact")) {
+                document.querySelector("#contact")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (
+                value.includes("embedded") ||
+                value.includes("iot") ||
+                value.includes("web") ||
+                value.includes("mobile")
+            ) {
+                document.querySelector("#projects")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else {
+    
+                alert("No matching section found");
+    
+            }
+    
+        }
+    
+    });
+    
+    </script>
+    <script>
+        const slides = document.querySelectorAll('.bg-slide');
+        let current = 0;
+        
+        function changeSlide() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }
+        
+        // Change every 5 seconds
+        setInterval(changeSlide, 5000);
+        </script>
+        
+
+    <!-- PROJECT MODAL -->
 <div id="projectModal"
-class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-3 sm:p-4 backdrop-blur-sm overflow-y-auto">
 
-<div class="bg-slate-900 max-w-3xl w-full rounded-2xl overflow-hidden relative border border-cyan-500/20 shadow-2xl shadow-cyan-500/10">
+    <!-- MODAL BOX -->
+    <div class="bg-slate-900
+                w-full
+                max-w-[95vw]
+                lg:max-w-4xl
+                rounded-3xl
+                overflow-hidden
+                relative
+                border border-cyan-500/20
+                shadow-2xl shadow-cyan-500/10
+                my-10">
 
-   <button onclick="closeProject()"
-           class="absolute top-4 right-4 text-white text-3xl hover:text-cyan-400 transition z-50">
-       &times;
-   </button>
+        <!-- IMAGE CONTAINER -->
+        <div class="w-full
+                    h-[200px]
+                    sm:h-[260px]
+                    md:h-[320px]
+                    lg:h-[350px]
+                    bg-black
+                    flex
+                    items-center
+                    justify-center
+                    overflow-hidden">
 
-   <img id="modalImage"
-        src=""
-        class="w-full h-72 object-cover">
+            <img id="modalImage"
+                 src=""
+                 alt="Project Image"
+                 class="max-w-full
+                        max-h-full
+                        object-contain
+                        object-center
+                        transition duration-300">
 
-   <div class="p-8">
+        </div>
 
-       <h2 id="modalTitle"
-           class="text-3xl font-bold mb-4 gradient-text">
-       </h2>
+        <!-- CONTENT -->
+        <div class="p-4 sm:p-5 lg:p-6">
 
-       <p id="modalDescription"
-          class="text-slate-300 mb-6 leading-relaxed text-lg">
-       </p>
+            <!-- TITLE -->
+            <h2 id="modalTitle"
+                class="text-xl sm:text-2xl lg:text-3xl
+                       font-bold
+                       mb-3
+                       gradient-text
+                       text-center sm:text-left
+                       leading-tight">
+            </h2>
 
-       <div id="modalTech"
-            class="flex flex-wrap gap-3 mb-6">
-       </div>
+           <!-- Description -->
+<p id="modalDescription"
+class="text-slate-300 mb-4 leading-relaxed text-xs md:text-20">
+</p>
 
-       <div class="flex gap-4 flex-wrap">
-           <a id="modalDemo"
-              href="#"
-              target="_blank"
-              class="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-400 text-white transition">
-               <i class="fas fa-external-link-alt mr-2"></i>
-               Live Demo
-           </a>
+            <!-- TECHNOLOGIES -->
+            <div id="modalTech"
+                 class="flex flex-wrap gap-2 mb-6 justify-center sm:justify-start">
+            </div>
 
-           <a id="modalCode"
-              href="#"
-              target="_blank"
-              class="px-6 py-3 rounded-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white transition">
-               <i class="fab fa-github mr-2"></i>
-               GitHub
-           </a>
-       </div>
-   </div>
+            <!-- BUTTONS -->
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
+
+                <!-- LIVE DEMO -->
+                <a id="modalDemo"
+                   href="#"
+                   target="_blank"
+                   class="w-full sm:w-auto
+                          text-center
+                          px-2 py-2
+                          text-sm
+                          rounded-full
+                          border border-cyan-500
+                          text-cyan-400
+                          hover:bg-cyan-500
+                          hover:text-white
+                          transition duration-300">
+
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Live Demo
+
+                </a>
+
+                <!-- GITHUB -->
+                <a id="modalCode"
+                   href="#"
+                   target="_blank"
+                   class="w-full sm:w-auto
+                          text-center
+                          px-4 py-2
+                          text-sm
+                          rounded-full
+                          border border-cyan-500
+                          text-cyan-400
+                          hover:bg-cyan-500
+                          hover:text-white
+                          transition duration-300">
+
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub
+
+                </a>
+
+                <!-- CLOSE -->
+                <button onclick="closeProject()"
+                class="w-full sm:w-auto
+                       px-4 py-2
+                       text-sm
+                       rounded-full
+                       border border-cyan-500
+                       text-cyan-400
+                       hover:bg-cyan-500
+                       hover:text-white
+                       transition duration-300">
+
+                    <i class="fas fa-times mr-2"></i>
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-</div>
+    
+    </div>
 </body>
 </html>
