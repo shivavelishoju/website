@@ -1,958 +1,3596 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio | Dark Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#7e22ce',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        #topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
 
-<title>Freshers Job Alerts | Jobs, Walk-ins & Hiring Updates</title>
+    width: 50px;
+    height: 50px;
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(15, 23, 42, 0.8);
+    color: white;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(20px);
+
+    transition: all 0.3s ease;
+
+    z-index: 999;
+}
+
+/* SHOW BUTTON */
+#topBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* HOVER EFFECT */
+#topBtn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+#projectModal {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    color: #e2e8f0;
+}
+
+/* Background container */
+.bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Each slide */
+.bg-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+/* Active slide */
+.bg-slide.active {
+    opacity: 1;
+}
+
+/* Dark overlay for readability */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(1, 16, 48, 0.75),
+        rgba(1, 16, 48, 0.90)
+    );
+    z-index: -1;
+}
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            left: -7.5px;
+            top: 0;
+            background: linear-gradient(135deg, #0ea5e9, #7e22ce);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #1e293b;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: width 1s ease-in-out;
+        }
+        
+        .project-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 5px 5px 15px rgba(2, 6, 23, 0.5), 
+                        -5px -5px 15px rgba(30, 41, 59, 0.5);
+        }
+        
+        .contact-input {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-input:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        
+        .hero-image-wrap {
+    position: relative;
+    width: 520px;
+    height: 700px;
+}
+
+.hero-image-wrap {
+    position: relative;
+    width: 750px;
+    height: 810px;
+}
+
+/* PURE IMAGE ONLY */
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+   
+  
+
+    /* LEFT SIDE FADE ONLY */
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.2)   15%,
+        rgba(0,0,0,0.6) 30%,
+        rgba(0,0,0,1) 90%
+    );
+
+    mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.2) 15%,
+        rgba(0,0,0,0.6) 50%,
+        rgba(0,0,0,1) 90%
+    );
+
+    /* subtle premium look */
+    filter: contrast(1.00) saturate(1.1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-image-wrap {
+        width: 420px;
+        height: 320px;
+    }
+}
+
+.search-container {
+    position: relative;
+
+    width: 220px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    border-radius: 16px;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(14px);
+
+    transition: all 0.3s ease;
+
+    overflow: hidden;
+}
+
+/* subtle glow on focus */
+.search-container:focus-within {
+
+    border-color: rgba(34,211,238,0.35);
+
+    box-shadow:
+        0 0 0 4px rgba(34,211,238,0.06),
+        0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* icon */
+.search-icon {
+    color: rgba(255,255,255,0.45);
+
+    font-size: 15px;
+
+    margin-right: 14px;
+}
+
+/* input */
+.search-input {
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    letter-spacing: 0.2px;
+}
+
+/* placeholder */
+.search-input::placeholder {
+    color: rgba(255,255,255,0.35);
+}
+
+/* optional soft top highlight */
+.search-container::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background: rgba(255,255,255,0.08);
+}
+        
+    </style>
+</head>
+
+
+<body class="bg-dark text-slate-200">
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+
+        <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 blur-3xl rounded-full"></div>
+    
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/10 blur-3xl rounded-full"></div>
+    
+    </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-darker/80 backdrop-blur-sm z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold gradient-text">Portfolio</a>
+
+                <div class="search-container">
+
+                    <i class="fas fa-search search-icon"></i>
+                
+                    <input 
+                        type="text" 
+                        id="portfolioSearch"
+                        placeholder="Search projects, skills..."
+                        class="search-input"
+                    >
+                
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-slate-200 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#Experience" class="nav-link">Experience</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <a href="#home" class="block py-2 nav-link active">Home</a>
+                <a href="#about" class="block py-2 nav-link">About</a>
+                <a href="#Experience" class="nav-link">Experience</a>
+                <a href="#skills" class="block py-2 nav-link">Skills</a>
+                <a href="#projects" class="block py-2 nav-link">Projects</a>
+                <a href="#contact" class="block py-2 nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+<!-- Hero Section -->
+<!-- Background Slider -->
+
+<div class="bg-slider"> 
+    <div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b');"></div>
+
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1504639725590-34d0984388bd');"></div>
+</div>
+
+<!-- Overlay -->
+
+<div class="overlay"></div>
+<section id="home" class="min-h-screen flex items-center pt-20">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+
+        <!-- Left Content -->
+        <div class="md:w-1/2 mb-12 md:mb-0">
+
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                Hi, I'm 
+                <span class="gradient-text">Shiva Velishoju</span>
+            </h1>
+
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-slate-300">
+                Founder of Velino IDE
+            </h2>
+
+            <p class="text-lg mb-8 text-slate-400 max-w-lg leading-relaxed">
+                I build smart embedded systems, IoT solutions, and modern software 
+                experiences that combine innovation, performance, and futuristic design. 
+                Passionate about transforming ideas into impactful real-world technology.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex flex-wrap items-center gap-4 mt-8">
+
+                <!-- GitHub -->
+                <a href="https://github.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary transition">
+
+                    <i class="fab fa-github"></i>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600 transition">
+
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <!-- Twitter/X -->
+                <a href="https://twitter.com/"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-400 transition">
+
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/919963761162"
+                   target="_blank"
+                   class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500 transition">
+
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                
+
+            </div>
+            
+
+
+            <!-- Scroll To Top Button -->
+<button id="topBtn">
+    <i class="fas fa-arrow-up"></i>
+</button>            
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+            </div> 
+        </div>
+        <!-- Right Image -->
+        <!-- <div class="md:w-2/2 flex justify-center items-center "> -->
+           <div class="hero-image-wrap right-4 ">
+                <div class="hero-image-wrap  bottom-2">        
+                <img src="https://i.postimg.cc/Dw473mB7/shiva.png"
+                     alt="Shiva Velishoju"
+                     class="hero-image">       
+            </div>       
+        </div>
+    </div>
+</section>  
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+   <!-- About Section -->
+<section id="about" class="py-20 bg-darker">
+    <div class="container mx-auto px-6">
+        <!-- Section Title -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                About <span class="gradient-text">Me</span>
+            </h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+        </div>
+        <!-- Content -->
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Left Image -->
+            <div class="md:w-1/3 flex justify-center">
+                <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                    <!-- Glow Effect -->
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
+                    <!-- Image -->
+                    <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
+                         alt="Velino IDE"
+                         class="relative w-full h-full object-cover rounded-2xl border-4 border-slate-800 shadow-2xl floating">
+                </div>
+            </div>
+            <!-- Right Content -->
+            <div class="md:w-2/3">
+                <h3 class="text-2xl font-bold mb-6">
+                    Who am I?
+                </h3>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    I’m Shiva Velishoju, Founder of Velino IDE and an Embedded Systems &
+                    Software Developer passionate about building next-generation hardware
+                    and intelligent digital ecosystems.
+                </p>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    My work combines embedded engineering, IoT, automation, PCB design,
+                    and modern software development to create practical technologies that
+                    bridge the gap between hardware innovation and user-centric experiences.
+                </p>
+                <p class="text-slate-400 mb-6 leading-relaxed">
+                    I specialize in developing smart systems using ESP32, Arduino, and
+                    custom electronics, alongside software platforms built with
+                    Electron.js, Node.js, and modern mobile application technologies.
+                </p>
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    As the creator of projects like Velino IDE, Velino Board, Velino AirPad,
+                    and VADDI Calculator, my vision is to build futuristic technologies that
+                    empower developers, makers, and everyday users through seamless
+                    hardware-software integration and innovative digital experiences.
+                </p>
+                <!-- Personal Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <!-- Left -->
+                    <div class="space-y-3">
+                        <h4 class="font-semibold">
+                            Name:
+                            <span class="text-slate-300 font-normal">
+                                Shiva Velishoju
+                            </span>
+                        </h4>
+                        <h4 class="font-semibold">
+                            Email:
+                            <span class="text-slate-300 font-normal">
+                                shivavelishoju0827@gmail.com
+                            </span>
+                        </h4>
+                        <h4 class="font-semibold">
+                            Phone:
+                            <span class="text-slate-300 font-normal">
+                                +91 9963761162
+                            </span>
+                        </h4>
+                    </div>
+                    <!-- Right -->
+                    <div class="space-y-3">
+
+                        <h4 class="font-semibold">
+                            Age:
+                            <span class="text-slate-300 font-normal">
+                                24
+                            </span>
+                        </h4>
+
+                        <h4 class="font-semibold">
+                            Experience:
+                            <span class="text-slate-300 font-normal">
+                                1+ Year
+                            </span>
+                        </h4>
+
+                        <h4 class="font-semibold">
+                            Location:
+                            <span class="text-slate-300 font-normal">
+                                Warangal, Telangana, India
+                            </span>
+                        </h4>
+
+                    </div>
+
+                </div>
+                
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+        
+<!-- Experience Timeline -->
+<div class="mt-20" id="Experience">
+
+    <!-- Section Title -->
+    <h3 class="text-2xl md:text-3xl font-bold mb-14 text-center">
+        My <span class="gradient-text">Experience</span>
+    </h3>
+
+    <div class="relative max-w-5xl mx-auto">
+
+        <!-- Center Timeline Line -->
+        <div class="absolute left-1/2 top-0 h-full w-1 bg-slate-700 transform -translate-x-1/2 hidden md:block"></div>
+
+        <!-- Experience 1 -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
+                <h4 class="text-xl font-bold mb-2 text-primary">
+                    Embedded Systems Developer
+                </h4>
+
+                <p class="text-sm text-slate-400 mb-4">
+                    Freelance & Personal Projects • 2023 - Present
+                </p>
+
+                <p class="text-slate-300 leading-relaxed">
+                    Designed and developed ESP32-based IoT systems, smart automation
+                    devices, Bluetooth applications, and sensor integration projects.
+                    Worked extensively with Arduino IDE, BLE communication, RTC modules,
+                    OLED/TFT displays, and intelligent embedded solutions.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Experience 2 -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
+                <h4 class="text-xl font-bold mb-2 text-secondary">
+                    PCB Design Engineer
+                </h4>
+
+                <p class="text-sm text-slate-400 mb-4">
+                    VELINO Hardware Projects • 2023 - Present
+                </p>
+
+                <p class="text-slate-300 leading-relaxed">
+                    Designed custom PCBs for embedded devices including VELINO Board,
+                    gaming controllers, IoT systems, and automation products using EasyEDA.
+                    Experienced in schematic design, routing, component selection,
+                    prototyping, and hardware optimization.
+                </p>
+
+            </div>
+
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-secondary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
+        </div>
+
+        <!-- Experience 3 -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
+                <h4 class="text-xl font-bold mb-2 text-primary">
+                    Full Stack & Software Developer
+                </h4>
+
+                <p class="text-sm text-slate-400 mb-4">
+                    VELINO IDE & Software Projects • 2023 - Present
+                </p>
+
+                <p class="text-slate-300 leading-relaxed">
+                    Built desktop and web applications using Electron.js, Node.js,
+                    JavaScript, HTML, and CSS. Developed modern UI systems,
+                    serial communication tools, and embedded software interfaces
+                    for IoT ecosystems and developer platforms.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Experience 4 -->
+        <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full relative">
+
+            <!-- Card -->
+            <div class="md:w-5/12 w-full p-6 bg-slate-800 rounded-2xl shadow-xl border border-slate-700 card-hover">
+
+                <h4 class="text-xl font-bold mb-2 text-secondary">
+                    Mobile App Developer
+                </h4>
+
+                <p class="text-sm text-slate-400 mb-4">
+                    Android Application Projects • 2022 - Present
+                </p>
+
+                <p class="text-slate-300 leading-relaxed">
+                    Developed Android applications including VADDI Calculator,
+                    smart automation controllers, and Bluetooth-based mobile apps
+                    using MIT App Inventor and modern mobile UI principles.
+                </p>
+
+            </div>
+
+            <!-- Timeline Dot -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-secondary rounded-full border-4 border-slate-900 z-10"></div>
+
+            <!-- Empty Space -->
+            <div class="hidden md:block md:w-5/12"></div>
+
+        </div>
+
+    </div>
+
+</div>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+<!-- End Experience Section -->
+    <!-- Skills Section -->
+<!-- =============================== -->
+<!-- SMALLER INTERACTIVE SKILLS TREE -->
+<!-- =============================== -->
+
+<section id="skills"
+class="py-20 bg-transpart overflow-hidden">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+        <!-- TITLE -->
+        <div class="text-center mb-16">
+
+          
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">
+                Skills <span class="gradient-text">Architecture</span>
+            </h3>
+
+            <p class="text-slate-400 max-w-1xl mx-auto leading-relaxed">
+                Interactive visualization of my technical expertise,
+                embedded systems knowledge, software development,
+                robotics, and innovation capabilities.
+            </p>
+
+        </div>
+
+        <!-- MAIN -->
+        <div class="flex flex-col items-center relative">
+
+            <!-- MAIN NODE -->
+            <div class="main-node">
+
+                <i class="fas fa-brain text-3xl text-cyan-300 mb-3"></i>
+
+                <h3 class="text-xl font-bold text-white">
+                    Shiva Velishoju
+                </h3>
+
+                <p class="text-slate-300 text-sm mt-1">
+                    Embedded Systems Engineer
+                </p>
+
+            </div>
+
+            <!-- LINE -->
+            <div class="w-1 h-14 bg-cyan-500/40"></div>
+
+            <!-- TOP BRANCH -->
+            <div class="hidden lg:block branch-line"></div>
+
+            <!-- GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
+
+                <!-- CARD 1 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-cyan-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Embedded Systems',
+                    'Experienced in Arduino, ESP32, sensor integration, automation systems, firmware development, and embedded hardware prototyping.'
+                    )">
+
+                        <div class="skill-icon bg-cyan-500/20">
+                            <i class="fas fa-microchip text-cyan-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Embedded Systems
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>Arduino</li>
+                            <li>ESP32</li>
+                            <li>IoT Devices</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-purple-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Software Development',
+                    'Built desktop apps, responsive websites, Electron.js software, modern UI systems, and Node.js based applications.'
+                    )">
+
+                        <div class="skill-icon bg-purple-500/20">
+                            <i class="fas fa-code text-purple-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Software Development
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>JavaScript</li>
+                            <li>Electron.js</li>
+                            <li>Node.js</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="flex flex-col items-center relative">
+
+                    <div class="hidden lg:block top-line bg-green-500/40"></div>
+
+                    <div class="skill-card"
+                    onclick="openSkill(
+                    'Robotics & AI',
+                    'Developed AI robots, delivery robots, surveillance robots, robotic hands, and intelligent automation systems.'
+                    )">
+
+                        <div class="skill-icon bg-green-500/20">
+                            <i class="fas fa-robot text-green-400"></i>
+                        </div>
+
+                        <h3 class="skill-title">
+                            Robotics & AI
+                        </h3>
+
+                        <ul class="skill-list">
+                            <li>Robotics</li>
+                            <li>ADAS</li>
+                            <li>Automation</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
+
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+
+<!-- =============================== -->
+<!-- POPUP MODAL -->
+<!-- =============================== -->
+
+<div id="skillPopup"
+class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+
+    <div class="popup-box">
+
+        <button onclick="closeSkill()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+        <i class="fas fa-bolt text-cyan-400 text-4xl mb-5"></i>
+
+        <h2 id="popupTitle"
+        class="text-2xl font-bold text-white mb-4 text-center">
+        </h2>
+
+        <p id="popupDescription"
+        class="text-slate-300 text-center leading-relaxed">
+        </p>
+
+    </div>
+
+</div>
+
+<!-- =============================== -->
+<!-- JAVASCRIPT -->
+<!-- =============================== -->
+
+<script>
+
+function openSkill(title, description){
+
+    document.getElementById("popupTitle").innerText = title;
+
+    document.getElementById("popupDescription").innerText = description;
+
+    document.getElementById("skillPopup").classList.remove("hidden");
+
+    document.getElementById("skillPopup").classList.add("flex");
+
+}
+
+function closeSkill(){
+
+    document.getElementById("skillPopup").classList.add("hidden");
+
+    document.getElementById("skillPopup").classList.remove("flex");
+
+}
+
+</script>
+
+<!-- =============================== -->
+<!-- CSS -->
+<!-- =============================== -->
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+.main-node{
+
+    width:280px;
+
+    padding:30px 20px;
+
+    border-radius:25px;
+
+    background:linear-gradient(145deg,#0f172a,#111827);
+
+    border:1px solid rgba(34,211,238,0.25);
+
+    text-align:center;
+
+    box-shadow:
+    0 0 35px rgba(34,211,238,0.12);
+
+    z-index:10;
+
 }
 
-html{
-scroll-behavior:smooth;
+.branch-line{
+
+    position:absolute;
+
+    top:170px;
+
+    width:69%;
+
+    height:2px;
+
+    background:#22d3ee55;
+
+    border-radius:10px;
+
 }
 
-body{
-    background:#ffffff;
-    color:#e6e9f0;
-    overflow-x:hidden;
-}
-/* HEADER */
+.top-line{
 
-header{
-position:sticky;
-top:0;
-z-index:1000;
-background:black;
-padding:15px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #edf0f4;
+    position:absolute;
+
+    top:-47px;
+
+    width:2px;
+
+    height:50px;
+
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:15px;
+.skill-card{
+
+    width:100%;
+
+    max-width:260px;
+
+    padding:25px 20px;
+
+    border-radius:24px;
+
+    background:linear-gradient(145deg,#0f172a,#111827);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    cursor:pointer;
+
+    transition:0.4s ease;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.3);
+
 }
 
-.logo-icon{
-width:60px;
-height:60px;
-border-radius:50%;
-background:#fafafa;
-color:#000;
-font-size:28px;
-font-weight:bold;
-display:flex;
-align-items:center;
-justify-content:center;
+.skill-card:hover{
+
+    transform:translateY(-8px) scale(1.02);
+
+    border-color:rgba(34,211,238,0.4);
+
+    box-shadow:
+    0 15px 35px rgba(34,211,238,0.15);
+
 }
 
-.logo-text h1{
-font-size:24px;
-color:#f7f6f3;
+.skill-icon{
+
+    width:65px;
+    height:65px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto auto 20px;
+
+    font-size:28px;
+
 }
 
-.logo-text p{
-font-size:12px;
-color:#cbd5e1;
+.skill-title{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
 }
 
-nav{
-display:flex;
-gap:20px;
+.skill-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
 }
 
-nav a{
-text-decoration:none;
-color:white;
-font-weight:500;
+.skill-list li{
+
+    list-style:none;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.04);
+
+    color:#cbd5e1;
+
+    text-align:center;
+
+    font-size:14px;
+
 }
 
-nav a:hover{
-color:#facc15;
-}
+/* POPUP */
 
-/* HERO */
+.popup-box{
 
-.hero{
-padding:100px 20px;
-text-align:center;
-background:linear-gradient(135deg,#638fe6,#022d97);
-}
+    width:100%;
 
-.hero h2{
-font-size:60px;
-margin-bottom:20px;
-}
+    max-width:420px;
 
-.hero p{
-max-width:800px;
-margin:auto;
-font-size:18px;
-color:#cbd5e1;
-line-height:1.8;
-}
+    background:#0f172a;
 
-.hero-buttons{
-margin-top:35px;
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
+    border-radius:28px;
 
-.btn{
-padding:14px 28px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-}
+    padding:40px 30px;
 
-.btn-primary{
-background:#ffffff;
-color:black;
-}
+    border:1px solid rgba(34,211,238,0.2);
 
-.btn-secondary{
-border:2px solid #facc15;
-color:#facc15;
-}
+    position:relative;
 
-/* LOGO SLIDER */
+    box-shadow:
+    0 0 40px rgba(34,211,238,0.15);
 
-.slider-section{
-padding:60px 0;
-}
-
-.section-title{
-text-align:center;
-font-size:36px;
-color:#fafafa;
-margin-bottom:30px;
-}
-
-.slider{
-overflow:hidden;
-background:white;
-padding:20px 0;
-}
-
-.slide-track{
-display:flex;
-width:calc(220px * 20);
-animation:scroll 35s linear infinite;
-}
-
-.slide-track img{
-width:180px;
-height:80px;
-object-fit:contain;
-margin:0 20px;
-}
-
-@keyframes scroll{
-0%{
-transform:translateX(0);
-}
-100%{
-transform:translateX(calc(-220px * 10));
-}
-}
-
-/* QUICK APPLY */
-
-.quick-apply{
-padding:70px 8%;
-}
-
-.company-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.company-grid a{
-background:#20335b;
-color:rgb(249, 248, 248);
-padding:18px;
-text-align:center;
-border-radius:12px;
-text-decoration:none;
-font-weight:bold;
-transition:0.3s;
-}
-
-.company-grid a:hover{
-transform:translateY(-4px);
-}
-
-/* SEARCH */
-
-.search-box{
-padding:40px 8%;
-}
-
-.search-box input{
-width:100%;
-padding:16px;
-border:none;
-border-radius:10px;
-font-size:16px;
-}
-
-/* JOBS */
-
-.jobs{
-padding:60px 8%;
-}
-
-.job-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:25px;
-}
-
-.job-card{
-background:#111827;
-padding:25px;
-border-radius:15px;
-border:1px solid #1f2937;
-transition:0.3s;
-}
-
-.job-card:hover{
-transform:translateY(-5px);
-border-color:#fafafa;
-}
-
-.job-card h3{
-margin-bottom:15px;
-color:#ffffff;
-}
-
-.job-card p{
-margin-bottom:8px;
-color:#eceef0;
-}
-
-.job-card button{
-margin-top:15px;
-background:#ffffff;
-border:none;
-padding:12px 20px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* CATEGORIES */
-
-.categories{
-padding:60px 8%;
-}
-
-.category-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-
-.category{
-background:#20335b;
-padding:25px;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
-}
-
-/* SOCIAL */
-
-.social{
-padding:60px 8%;
-text-align:center;
-}
-
-.social-links{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-top:20px;
-}
-
-.social-links a{
-background:#0c0573e5;
-padding:15px 25px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-color:rgb(255, 255, 255);
-}
-
-/* FOOTER */
-
-footer{
-margin-top:50px;
-padding:25px;
-text-align:center;
-background:#111827;
-color:#94a3b8;
 }
 
 /* MOBILE */
 
 @media(max-width:768px){
 
-header{
-flex-direction:column;
-gap:15px;
-}
+    .main-node{
 
-nav{
-flex-wrap:wrap;
-justify-content:center;
-}
+        width:100%;
 
-.hero h2{
-font-size:40px;
-}
+        max-width:280px;
 
-.hero p{
-font-size:16px;
-}
+    }
+
+    .skill-card{
+
+        max-width:100%;
+
+    }
 
 }
-/* ANIMATED BACKGROUND */
-
-body{
-    background: url("https://i.postimg.cc/P5Bt8HX5/068843c35c7dfc2fc1034733f2f6c2ab.jpg") no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    overflow-x: hidden;
-}
-.particles{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-overflow:hidden;
-pointer-events:none;
-z-index:-1;
-}
-
-/* .particles span{
-position:absolute;
-display:block;
-width:25px;
-height:25px;
-background:rgba(198, 200, 235, 0.883);
-border-radius:50%;
-animation:float 15s linear infinite;
-}
-
-.particles span:nth-child(1){
-left:10%;
-animation-duration:15s;
-}
-
-.particles span:nth-child(2){
-left:20%;
-animation-duration:20s;
-}
-
-.particles span:nth-child(3){
-left:35%;
-animation-duration:17s;
-}
-
-.particles span:nth-child(4){
-left:50%;
-animation-duration:22s;
-}
-
-.particles span:nth-child(5){
-left:65%;
-animation-duration:18s;
-}
-
-.particles span:nth-child(6){
-left:80%;
-animation-duration:24s;
-}
-
-.particles span:nth-child(7){
-left:90%;
-animation-duration:16s;
-} */
-
-@keyframes float{
-
-0%{
-transform:translateY(100vh) scale(0);
-opacity:0;
-}
-
-20%{
-opacity:1;
-}
-
-100%{
-transform:translateY(-100px) scale(1.5);
-opacity:0;
-}
-
-}
-
 
 </style>
-</head>
+<!-- Tools & Technologies -->
+<div class="mt-10 px-4 md:px-8">
 
-<body>
+    <!-- Section Title -->
+    <div class="text-center mb-12 ">
 
-<header>
-  <div class="particles">
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            Tools & <span class="gradient-text">Technologies</span>
+        </h3>
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    
+        <p class="text-slate-400 max-w-1xl mx-auto leading-relaxed">
+            Technologies, frameworks, and development tools I use to build
+            embedded systems, smart automation platforms, IoT applications,
+            and modern software experiences.
+        </p>
+
     </div>
-<div class="logo">
 
-  <div class="logo-icon">
-    <img src="https://i.postimg.cc/52gyc2ZD/Chat-GPT-Image-May-23-2026-02-06-09-PM-2.png" alt="Freshers Job Alerts Logo">
+    <!-- Technology Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 ">
+
+        <!-- HTML5 -->
+        <div onclick="showTech('HTML5','Experienced in building semantic, responsive, and modern web interfaces using HTML5 standards.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-orange-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-html5 text-5xl text-orange-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                HTML5
+            </span>
+
+        </div>
+
+        <!-- CSS3 -->
+        <div onclick="showTech('CSS3','Skilled in modern CSS, Flexbox, Grid systems, Tailwind CSS, animations, and responsive design.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-blue-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                CSS3
+            </span>
+
+        </div>
+
+        <!-- JavaScript -->
+        <div onclick="showTech('JavaScript','Built dynamic web applications, dashboards, and interactive UI systems using JavaScript.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-yellow-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-js-square text-5xl text-yellow-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                JavaScript
+            </span>
+
+        </div>
+
+        <!-- Java -->
+        <div onclick="showTech('Java','Knowledge in Java programming, OOP concepts, backend logic, and application development.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-red-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-java text-5xl text-red-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Java
+            </span>
+
+        </div>
+
+        <!-- Node.js -->
+        <div onclick="showTech('Node.js','Used Node.js for backend systems, Electron.js applications, APIs, and desktop software development.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-green-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fab fa-node-js text-5xl text-green-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Node.js
+            </span>
+
+        </div>
+
+        <!-- Electron.js -->
+        <div onclick="showTech('Electron.js','Developed modern desktop applications including VELINO IDE using Electron.js and Node.js.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-cyan-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-desktop text-5xl text-cyan-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Electron.js
+            </span>
+
+        </div>
+
+        <!-- Arduino -->
+        <div onclick="showTech('Arduino','Experienced in Arduino-based embedded systems, automation projects, and sensor integration.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-teal-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-microchip text-5xl text-teal-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                Arduino
+            </span>
+
+        </div>
+
+        <!-- ESP32 -->
+        <div onclick="showTech('ESP32','Built IoT and smart automation systems using ESP32, BLE, WiFi, and real-time communication.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-indigo-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-wifi text-5xl text-indigo-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                ESP32
+            </span>
+
+        </div>
+
+        <!-- PCB Design -->
+        <div onclick="showTech('PCB Design','Designed custom PCB boards using EasyEDA for IoT, gaming, robotics, and embedded systems.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-orange-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-project-diagram text-5xl text-orange-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                PCB Design
+            </span>
+
+        </div>
+
+        <!-- MIT App Inventor -->
+        <div onclick="showTech('MIT App Inventor','Developed Android applications for automation systems, finance tools, and Bluetooth controllers.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-purple-500 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-mobile-alt text-5xl text-purple-500 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                MIT App Inventor
+            </span>
+
+        </div>
+
+        <!-- VS Code -->
+        <div onclick="showTech('VS Code','Primary development environment for software development, embedded systems, and web technologies.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-blue-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-code text-5xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                VS Code
+            </span>
+
+        </div>
+
+        <!-- EasyEDA -->
+        <div onclick="showTech('EasyEDA','Used EasyEDA for schematic design, PCB routing, circuit simulation, and hardware prototyping.')"
+             class="group flex flex-col items-center text-center p-6 bg-slate-800/60 border border-slate-700 rounded-2xl shadow-lg hover:border-green-400 hover:-translate-y-2 transition duration-300 cursor-pointer backdrop-blur-sm">
+
+            <i class="fas fa-drafting-compass text-5xl text-green-400 mb-4 group-hover:scale-110 transition"></i>
+
+            <span class="font-medium text-slate-200">
+                EasyEDA
+            </span>
+
+        </div>
+
+    </div>
+
 </div>
-<style>.logo-icon{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  overflow:hidden;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+ <div class="text-center mb-12 ">
 
-.logo-icon img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}</style>
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">
+             <span class="gradient-text"></span>
+        </h3>
 
-<div class="logo-text">
-<h1>Freshers Job Alerts</h1>
-<p>Daily Walk-ins & Hiring Updates</p>
+        <!-- <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Technologies, frameworks, and development tools I use to build
+            embedded systems, smart automation platforms, IoT applications,
+            and modern software experiences.
+        </p> -->
+
+    </div>
+
+<!-- Modal -->
+<div id="techModal"
+class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl p-8 w-[90%] max-w-md relative">
+
+        <!-- Close Button -->
+        <button onclick="closeModal()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl">
+            &times;
+        </button>
+
+        <!-- Title -->
+        <h2 id="techTitle"
+        class="text-2xl font-bold gradient-text mb-4"></h2>
+
+        <!-- Description -->
+        <p id="techDescription"
+        class="text-slate-300 leading-relaxed"></p>
+
+    </div>
 </div>
+    </section>
+
+    <script>
+
+        function showTech(title, description) {
+        
+            document.getElementById("techTitle").innerText = title;
+            document.getElementById("techDescription").innerText = description;
+        
+            const modal = document.getElementById("techModal");
+        
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+        
+        function closeModal() {
+        
+            const modal = document.getElementById("techModal");
+        
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+        
+        </script>
+        <!-- SECTION DIVIDER -->
+ <div class="flex items-center justify-center my-2 bg-darker">
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+
+    <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+        velino
+    </span>
+
+    <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
 
 </div>
-
-<nav>
-<a href="#jobs">Jobs</a>
-<a href="#apply">Apply</a>
-<a href="#categories">Categories</a>
-<a href="#social">Social</a>
-</nav>
-
-</header>
-
-<section class="hero">
-
-  <h2>
-    🚀 Freshers Job Alerts
-    </h2>
     
-    <p>
-    Daily Walk-ins • Freshers Hiring • Off-Campus Drives • Internships
+<!-- PROJECTS SECTION -->
+<!-- ========================================= -->
+<!-- PROJECTS SECTION -->
+<!-- ========================================= -->
+
+<section id="projects" class="py-5 bg-darker overflow-hidden">
+
+    <div class="container mx-auto px-6">
+
+        <!-- HEADING -->
+        <div class="text-center mb-16">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4">
+                My <span class="gradient-text">Projects</span>
+            </h3>
+          
+            
+
+            <p class="text-slate-400 max-w-1xl mx-auto">
+                Innovative embedded systems, IoT devices, robotics, automation,
+                and software applications developed under the VELINO ecosystem.
+            </p>
+
+            <!-- <div
+                class="w-32 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-5 rounded-full">
+            </div> -->
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- PROJECT SLIDER -->
+        <!-- ========================================= -->
+
+        <div class="relative ">
+<style>/* ========================================= */
+    /* SLIDER BUTTON POSITION */
+    /* ========================================= */
+    
+    /* LEFT BUTTON */
+    #slideLeft{
+    
+        left:-55px;      /* move more left */
+        top:50%;
+    }
+    
+    /* RIGHT BUTTON */
+    #slideRight{
+    
+        right:-55px;     /* move more right */
+        top:50%;
+    }
+    
+    /* MOBILE FIX */
+    @media(max-width:768px){
+    
+        #slideLeft{
+            left:5px;
+        }
+    
+        #slideRight{
+            right:5px;
+        }
+    }</style>
+            <!-- LEFT BUTTON -->
+            <!-- <button id="slideLeft" class="slider-btn left-4">
+                <i class="fas fa-chevron-left"></i>
+            </button> -->
+
+            <!-- RIGHT BUTTON -->
+            <!-- <button id="slideRight" class="slider-btn right-0">
+                <i class="fas fa-chevron-right"></i>
+            </button> -->
+
+            <!-- SLIDER -->
+            <div id="projectSlider"
+                class="flex gap-8 overflow-x-auto scroll-smoothpx-3 py-5">
+
+                <!-- ========================================= -->
+                <!-- PROJECT 1 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO IDE',
+'VELINO IDE is a modern custom development environment designed for embedded systems, IoT development, and smart hardware programming. Built using Electron.js and Node.js, the IDE provides a futuristic platform for coding, compiling, uploading, and monitoring embedded applications.',
+'Electron.js, Node.js, JavaScript, HTML5, CSS3, Arduino CLI, Monaco Editor',
+'https://i.postimg.cc/qv6pHgjq/velino-ide.png',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/qv6pHgjq/velino-ide.png"
+                            alt="VELINO IDE"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            VELINO IDE
+                        </h3>
+
+                        <p class="project-desc">
+                            Futuristic embedded development platform.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 2 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Bionic Hand',
+'Advanced robotic prosthetic hand designed using embedded systems and gesture recognition technologies to mimic natural human hand movement.',
+'Arduino, Robotics, Servo Motors, Sensors',
+'https://i.postimg.cc/P5gCndvr/maxresdefault.jpg',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/P5gCndvr/maxresdefault.jpg"
+                            alt="Bionic Hand"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Bionic Hand
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart robotic prosthetic system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 3 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Master Slave Robotic Hand',
+'Gesture-controlled robotic arm system designed to replicate real-time human hand movements using flex sensors and wireless communication.',
+'Flex Sensors, Arduino, Robotics, Embedded Systems',
+'https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/kgFcBYNn/brazo-robotico-2.webp"
+                            alt="Robotic Hand"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Master Slave Roboti Hand
+                        </h3>
+
+                        <p class="project-desc">
+                            Human-machine interaction robotics.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 4 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO MECANUM SURVEILLANCE ROBOT',
+'Advanced omni-directional surveillance robot using mecanum wheels for intelligent navigation and autonomous movement.',
+'Mecanum Wheels, Robotics, IoT, Embedded Systems',
+'https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/CKR9kVcp/1185c476-1e28-4e75-b7c7-dbd6b84b6fdd.png"
+                            alt="Mecanum Robot"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                           Velino Mecanum Robot
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart omni-directional surveillance robot.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 5 -->
+                <!-- ========================================= -->
+
+                <!-- PROJECT 5 -->
+<div class="project-card"
+onclick="openProject(
+'VELINO FOOD DELIVERY ROBOT',
+'Autonomous smart robotic delivery system designed for restaurants, hospitals, hotels, and smart environments.',
+'ESP32, Robotics, Automation, IoT',
+'https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png',
+'#',
+'#'
+)">
+
+<!-- IMAGE CONTAINER -->
+<div class="project-image-container food-robot-image">
+
+    <img src="https://i.postimg.cc/dVjVpGF4/Screenshot-2026-05-24-at-3-25-03-PM.png"
+        alt="Food Robot"
+        class="project-image food-img">
+
+</div>
+
+<div class="project-content">
+
+    <h3 class="project-title">
+        Velino Food Delivery Robot
+    </h3>
+
+    <p class="project-desc">
+        Autonomous indoor delivery robot.
     </p>
 
-<p>
-Get daily hiring updates, walk-in drives, off-campus opportunities,
-IT and Non-IT jobs from top companies across India.
-</p>
-
-
-<section class="social" id="social">
-
-  <h4 class="section-title">Join Our Community</h4>
-  
-  <div class="social-links">
-  
-  
-  <a href="https://instagram.com/freshers.job.alerts"
-     target="_blank">
-     Follow Instagram
-  </a>
-
-  
-  
-  <!-- <a href="YOUR_TELEGRAM_LINK"
-     target="_blank">
-     📢 Join Telegram
-  </a> -->
-  
-  <!-- <a href="YOUR_WHATSAPP_LINK"
-     target="_blank">
-     💬 Join WhatsApp
-  </a> -->
-  
-  </div>
-  <section>
-
-    <div class="social-links">
-      <a href="https://www.naukri.com/job-listings-customer-support-executive-tech-mahindra-hyderabad-1-to-6-years-220426023041?src=jobsearchDesk&sid=1780063327896398_6&xp=2&px=1" target="_blank">
-        Tech-M
-        </a>
-
-        <a href="https://www.tcsion.com/hub/national-qualifier-test/" target="_blank">
-          TCS NQT
-          </a>
-          <!-- <a href="" target="_blank">
-            Wipro
-            </a> -->
-    </div>
-  </section>
-  </section>
-
-</section>
-<section>
-  <div class="social-links">
-    
-  </div>
-</section>
-
-
-
-<section class="slider-section">
-
-<h2 class="section-title">Top Hiring Companies</h2>
-
-<div class="slider">
-
-<div class="slide-track">
-
-<img src="https://i.postimg.cc/5tXxZ2xZ/amazon-logo-1.webp">
-<img src="https://i.postimg.cc/cJvsVLsj/hcl.png">
-<img src="https://i.postimg.cc/tgsXL4X8/ibm.png">
-<img src="https://i.postimg.cc/jjDsGSsp/infosys.png">
-<img src="https://i.postimg.cc/HLrpfkYG/microsoft.png">
-<img src="https://i.postimg.cc/vm4QpZYw/nvidia.png">
-<img src="https://i.postimg.cc/rpD8vwVL/tcs.png">
-<img src="https://i.postimg.cc/PqCtB5XH/techm.png">
-<img src="https://i.postimg.cc/5tXxZ241/wipro.jpg">
-<img src="https://i.postimg.cc/jjDsGSxx/zf.png">
-<img src="https://i.postimg.cc/PqCtB5t3/accemture.jpg">
-<img src="https://i.postimg.cc/cJvsVLs2/capgemini.jpg">
-
-
-<img src="https://i.postimg.cc/5tXxZ2xZ/amazon-logo-1.webp">
-<img src="https://i.postimg.cc/cJvsVLsj/hcl.png">
-<img src="https://i.postimg.cc/tgsXL4X8/ibm.png">
-<img src="https://i.postimg.cc/jjDsGSsp/infosys.png">
-<img src="https://i.postimg.cc/HLrpfkYG/microsoft.png">
-<img src="https://i.postimg.cc/vm4QpZYw/nvidia.png">
-<img src="https://i.postimg.cc/rpD8vwVL/tcs.png">
-<img src="https://i.postimg.cc/PqCtB5XH/techm.png">
-<img src="https://i.postimg.cc/5tXxZ241/wipro.jpg">
-<img src="https://i.postimg.cc/jjDsGSxx/zf.png">
-<img src="https://i.postimg.cc/PqCtB5t3/accemture.jpg">
-<img src="https://i.postimg.cc/cJvsVLs2/capgemini.jpg">
 </div>
 
 </div>
 
+                <!-- ========================================= -->
+                <!-- PROJECT 6 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO AIRPAD',
+'Wireless ESP32 gaming controller designed for PC, mobile, and IoT gaming applications.',
+'ESP32, BLE, PCB Design, Embedded Systems',
+'https://i.postimg.cc/yYFR6gB1/IMG-3239.avif',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/yYFR6gB1/IMG-3239.avif"
+                            alt="VELINO AIRPAD"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino AirPad
+                        </h3>
+
+                        <p class="project-desc">
+                            Futuristic wireless gaming controller.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 7 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO BOARD',
+'Custom smart embedded development board designed for IoT, automation, and robotics applications.',
+'ESP32, PCB Design, Sensors, Relay Control',
+'https://i.postimg.cc/NfzQnR7G/velino-board.png',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/NfzQnR7G/velino-board.png"
+                            alt="VELINO BOARD"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino Board S1
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart embedded development platform.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 8 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VADDI Calculator',
+'Finance and EMI calculation application supporting Telugu and English languages.',
+'MIT App Inventor, Android Development',
+'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1470&auto=format&fit=crop"
+                            alt="VADDI Calculator"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Vaddi Calculator
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart finance calculation application.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 9 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'VELINO C3 AI PET BOT',
+'AI-inspired smart desktop companion built using ESP32-C3 with OLED animations and interactive expressions.',
+'ESP32-C3, OLED Display, IoT',
+'https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/2SLCN32z/velino-c3-ai.jpg"
+                            alt="AI PET BOT"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino C3 AI Bot
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart AI desktop companion robot.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 10 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Zone Based ADAS',
+'Advanced Driver Assistance System for obstacle detection and intelligent vehicle safety.',
+'ADAS, Embedded Systems, IoT',
+'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1470&auto=format&fit=crop"
+                            alt="ADAS"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Zone Based ADAS
+                        </h3>
+
+                        <p class="project-desc">
+                            Intelligent vehicle safety platform.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 11 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'ESP32 C3 MAP NAVIGATOR',
+'Smart GPS navigation and location tracking system using ESP32-C3 technology.',
+'GPS, ESP32-C3, Navigation Systems',
+'https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/xC7GWwQ8/mapnavigator.webp"
+                            alt="MAP NAVIGATOR"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino Map Navigator
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart GPS navigation system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- PROJECT 12 -->
+                <!-- ========================================= -->
+
+                <div class="project-card"
+                    onclick="openProject(
+'Smart Medicine Reminder',
+'IoT healthcare reminder system designed to provide medicine alerts and scheduling.',
+'ESP32, RTC Module, IoT',
+'https://i.postimg.cc/Qtx900Wt/IMG-3411.avif',
+'#',
+'#'
+)">
+
+                    <div class="project-image-container">
+                        <img src="https://i.postimg.cc/Qtx900Wt/IMG-3411.avif"
+                            alt="Medicine Reminder"
+                            class="project-image">
+                    </div>
+
+                    <div class="project-content">
+
+                        <h3 class="project-title">
+                            Velino Smart Medicine Reminder
+                        </h3>
+
+                        <p class="project-desc">
+                            Smart healthcare automation system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+<!-- PROJECT 13 -->
+<!-- ========================================= -->
+
+<div class="project-card"
+onclick="openProject(
+'VELINO IR + BLUETOOTH SMART HOME AUTOMATION',
+'VELINO IR + BLUETOOTH SMART HOME AUTOMATION is an intelligent embedded automation system designed to control home appliances using both IR remote and Bluetooth wireless communication technologies. The system integrates relay control, DHT11 temperature monitoring, LCD display interface, mobile app connectivity, manual and automatic control modes, and real-time device management for seamless smart home interaction. Developed using Arduino Uno and ESP32 technologies, the project demonstrates embedded systems engineering, wireless communication, IoT automation, and smart device control for futuristic home automation applications.',
+'Arduino Uno, ESP32, IR Remote, Bluetooth HC-05, IoT, Relay Modules, DHT11 Sensor, Embedded Systems, LCD Display',
+'https://i.postimg.cc/1zQwd6bm/720A0A9E-71B2-4DB3-9EB5-A308C83EB9EA.png',
+'#',
+'#'
+)">
+
+<!-- IMAGE -->
+<div class="project-image-container">
+
+    <img src="https://i.postimg.cc/1zQwd6bm/720A0A9E-71B2-4DB3-9EB5-A308C83EB9EA.png"
+        alt="VELINO IR + BLUETOOTH SMART HOME AUTOMATION"
+        class="project-image">
+
+</div>
+
+<!-- CONTENT -->
+<div class="project-content">
+
+    <h3 class="project-title">
+        Velino + Bluetooth Smart Home Automation
+    </h3>
+
+    <p class="project-desc">
+        IR remote and Bluetooth based smart home automation system.
+    </p>
+
+</div>
+
+</div>
+
+ 
+                <!-- ========================================= -->
+<!-- PROJECT 14 -->
+<!-- ========================================= -->
+
+<div class="project-card"
+onclick="openProject(
+'DUM-E Six Axis Robotic Arm ',
+' Developed using Arduino Uno and Servo technologies, the project demonstrates embedded systems engineering  smart device control for futuristic Robotic controllers.',
+'Arduino Uno, Servo, Potintiometers, Bluetooth HC-05,Relay Modules,Zero PC, LCD Display',
+'https://i.postimg.cc/xjRV0Jvn/IMG-2819-Original.jpg',
+'#',
+'#'
+)">
+
+<!-- IMAGE -->
+<div class="project-image-container">
+
+    <img src="https://i.postimg.cc/xjRV0Jvn/IMG-2819-Original.jpg"
+        alt="VELINO IR + BLUETOOTH SMART HOME AUTOMATION"
+        class="project-image">
+
+</div>
+
+<!-- CONTENT -->
+<div class="project-content">
+
+    <h3 class="project-title">
+      DUM-E  
+    </h3>
+
+    <p class="project-desc">
+        DUM-E Six Axis Robotic Arm 
+    </p>
+
+</div>
+
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
-<section class="categories" id="categories">
 
-  <h2 class="section-title">Categories</h2>
-  
-  <div class="category-grid">
-  
-  <div class="category" onclick="openModal('freshers')">
-  Freshers Jobs
-  </div>
-  
-  <div class="category" onclick="openModal('walkin')">
-  Walk-In Drives
-  </div>
-  
-  <div class="category" onclick="openModal('itjobs')">
-  IT Jobs
-  </div>
-  
-  <div class="category" onclick="openModal('nonit')">
-  Non-IT Jobs
-  </div>
-  
-  <div class="category" onclick="openModal('wfh')">
-  Work From Home
-  </div>
-  
-  </div>
-  
-  </section>
-  <div id="jobModal" class="modal">
+<!-- ========================================= -->
+<!-- PROJECT MODAL -->
+<!-- ========================================= -->
 
-    <div class="modal-content">
-    
-    <span class="close" onclick="closeModal()">&times;</span>
-    
-    <h2 id="modalTitle"></h2>
-    
-    <div id="modalLinks"></div>
-    
+<div id="projectModal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 items-center justify-center p-4">
+
+    <div
+        class="bg-slate-900 w-full max-w-5xl rounded-3xl overflow-hidden border border-cyan-500/20 relative animate-fadeIn">
+
+        <!-- CLOSE -->
+        <button onclick="closeProject()"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-red-500 transition text-white z-10">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+        <div class="grid md:grid-cols-2 gap-0">
+
+            <!-- IMAGE -->
+            <div class="bg-black flex items-center justify-center p-6">
+
+                <img id="modalImage"
+                    src=""
+                    alt=""
+                    class="w-full h-[350px] object-cover rounded-2xl">
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="p-8 overflow-y-auto max-h-[80vh]">
+
+                <h2 id="modalTitle"
+                    class="text-3xl font-bold text-white mb-5">
+                </h2>
+
+                <!-- ABOUT -->
+                <div class="mb-6">
+
+                    <h3 class="text-cyan-400 text-lg font-semibold mb-3">
+                        About Project
+                    </h3>
+
+                    <p id="modalDescription"
+                        class="text-slate-300 leading-relaxed text-[15px]">
+                    </p>
+
+                </div>
+
+                <!-- TECH -->
+                <div class="mb-8">
+
+                    <h3 class="text-cyan-400 text-lg font-semibold mb-3">
+                        Technologies Used
+                    </h3>
+
+                    <div id="modalTech"
+                        class="flex flex-wrap gap-3">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-    
-    </div>
-    <style>.modal{
-      display:none;
-      position:fixed;
-      z-index:9999;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      background:rgba(241, 241, 241, 0.7);
-      }
-      
-      .modal-content{
-      background:rgb(255, 255, 255);
-      width:90%;
-      max-width:500px;
-      margin:10% auto;
-      padding:30px;
-      border-radius:15px;
-      text-align:center;
-      }
-      
-      .modal-content h2{
-      color:#0541c1;
-      margin-bottom:20px;
-      }
-      
-      .modal-content a{
-      display:block;
-      margin:10px 0;
-      padding:12px;
-      background:#0541c1;
-      color:white;
-      text-decoration:none;
-      border-radius:8px;
-      }
-      
-      .close{
-      float:right;
-      font-size:30px;
-      cursor:pointer;
-      color:red;
-      }</style>
+
+</div>
+
+<!-- ========================================= -->
+<!-- CSS -->
+<!-- ========================================= -->
+
+<style>
+
+/* ========================================= */
+/* FOOD ROBOT POPUP IMAGE FIX */
+/* ========================================= */
+
+#modalImage{
+
+width:100%;
+height:350px;
+
+object-fit:contain !important;
+
+background:#020617;
+
+padding:12px;
+
+border-radius:18px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+#modalImage{
+
+    height:220px;
+
+    object-fit:contain !important;
+
+    padding:10px;
+}
+}
+.food-robot-image{
+
+height:240px;
+
+overflow:hidden;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#020617;
+
+padding:12px;
+}
+
+.food-img{
+
+width:100%;
+height:100%;
+
+object-fit:contain !important;
+
+max-width:100%;
+max-height:100%;
+
+display:block;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.food-robot-image{
+    height:220px;
+}
+}
+
+#projectSlider{
+    scrollbar-width:none;
+}
+
+#projectSlider::-webkit-scrollbar{
+    display:none;
+}
+
+/* CARD */
+.project-card{
+
+    min-width:340px;
+    max-width:340px;
+
+    flex-shrink:0;
+
+    background:rgba(15,23,42,.92);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.4s ease;
+}
+
+.project-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#06b6d4;
+
+    box-shadow:0 20px 40px rgba(6,182,212,.2);
+}
+
+/* IMAGE CONTAINER */
+.project-image-container{
+
+    width:100%;
+    height:240px;
+
+    overflow:hidden;
+
+    background:#020617;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px;
+}
+
+/* IMAGE */
+.project-image{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    transition:transform .5s ease;
+}
+
+.project-card:hover .project-image{
+    transform:scale(1.06);
+}
+
+/* CONTENT */
+.project-content{
+    padding:20px;
+}
+
+.project-title{
+
+    color:white;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.project-desc{
+
+    color:#94a3b8;
+
+    font-size:.95rem;
+
+    line-height:1.6;
+}
+
+/* SLIDER BUTTON */
+.slider-btn{
+
+    position:absolute;
+
+    top:45%;
+
+    transform:translateY(-50%);
+
+    z-index:20;
+
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    background:rgba(15,23,42,.9);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    color:white;
+
+    transition:.3s ease;
+}
+
+.slider-btn:hover{
+
+    background:rgb(51, 52, 54);
+
+    transform:translateY(-50%) scale(1.1);
+}
+
+/* MODAL */
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.animate-fadeIn{
+    animation:fadeIn .3s ease;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .project-card{
+
+        min-width:88%;
+        max-width:88%;
+    }
+
+    .project-image-container{
+        height:220px;
+    }
+
+    .slider-btn{
+        width:45px;
+        height:45px;
+    }
+
+    #modalImage{
+        height:240px;
+    }
+}
+
+/* ========================================= */
+/* MOBILE MODAL FIX */
+/* ========================================= */
+
+@media(max-width:768px){
+
+/* MODAL CONTAINER */
+#projectModal{
+    padding:12px;
+    align-items:flex-start;
+    overflow-y:auto;
+}
+
+/* MODAL BOX */
+#projectModal .animate-fadeIn{
+
+    width:100%;
+    max-width:100%;
+
+    margin-top:20px;
+    margin-bottom:20px;
+
+    border-radius:22px;
+
+    max-height:95vh;
+
+    overflow-y:auto;
+}
+
+/* GRID FIX */
+#projectModal .grid{
+    grid-template-columns:1fr;
+}
+
+/* IMAGE */
+#modalImage{
+
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+}
+
+/* IMAGE WRAPPER */
+#projectModal .bg-black{
+
+    padding:14px;
+}
+
+/* CONTENT */
+#projectModal .p-8{
+
+    padding:20px;
+}
+
+/* TITLE */
+#modalTitle{
+
+    font-size:1.6rem;
+    line-height:1.3;
+}
+
+/* DESCRIPTION */
+#modalDescription{
+
+    font-size:.95rem;
+    line-height:1.8;
+}
+
+/* TECH TAGS */
+#modalTech{
+
+    gap:10px;
+}
+
+#modalTech span{
+
+    font-size:.8rem;
+    padding:8px 14px;
+}
+
+/* CLOSE BUTTON */
+#projectModal button{
+
+    width:42px;
+    height:42px;
+
+    top:10px;
+    right:10px;
+}
+
+}
+
+</style>
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
 <script>
 
-  const categoryLinks = {
-  // ------------------------------------------------------------------------------------------------
-  // Freshers Jobs
-    // ------------------------------------------------------------------------------------------------
-  freshers: {
-  title: "Freshers Jobs",
-  links: [
-  ["Infosys Careers","https://career.infosys.com"],
-  ["TCS NextStep","https://nextstep.tcs.com"],
-  ["Wipro Careers","https://careers.wipro.com"]
-  ]
-  },
-    // ------------------------------------------------------------------------------------------------
-    // Walk-In Drives
-      // ------------------------------------------------------------------------------------------------
-  walkin: {
-  title: "Walk-In Drives",
-  links: [
-  ["Wipro Walk-In","https://www.naukri.com"],
-  ["Tech Mahindra Walk-In","https://l.instagram.com/?u=https%3A%2F%2Fwww.naukri.com%2Fjob-listings-customer-support-executive-tech-mahindra-hyderabad-1-to-6-years-220426023041%3Fsrc%3DjobsearchDesk%26sid%3D1780063327896398_6%26xp%3D2%26px%3D1%26utm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGn203MZp0tRTMwe5qbhXfATCdRwqr4gv1J_OTnyObxcHLvZtauPhGINu3xVZ0_aem_zFhnoHDRBTE9iH5x6L-KHw&e=AUDio7wXjlRQT5JJtTyUmw_Cq1c--q7agvhiVoz_xG0Jy-fYhLSIs358B8g3BV7eUjcZ9ojrdrEyQOP7yILnodaybZXqdBUS3zo3ThR7bhBZwTTBT8SyCZe1mcHezkLAKHYZ-7DHQwx3ZpXCCQwHbMZCx5Az"],
-  ["Cognizant Walk-In","https://www.naukri.com"]
-  ]
-  },
-    // ------------------------------------------------------------------------------------------------
-    // IT Jobs
-      // ------------------------------------------------------------------------------------------------
-  itjobs: {
-  title: "IT Jobs",
-  links: [
-  ["Amazon Careers","https://www.amazon.jobs"],
-  ["Accenture Careers","https://www.accenture.com/in-en/careers"],
-  ["IBM Careers","https://www.ibm.com/careers"]
-  ]
-  },
-    // ------------------------------------------------------------------------------------------------
-    // NON-IT Jobs
-      // ------------------------------------------------------------------------------------------------
-  nonit: {
-  title: "Non-IT Jobs",
-  links: [
-  ["Access Healthcare","https://www.naukri.com"],
-  ["Sutherland","https://www.naukri.com"],
-  ["Genpact","https://www.naukri.com"]
-  ]
-  },
-    // ------------------------------------------------------------------------------------------------
-    // Work From Home Jobs
-      // ------------------------------------------------------------------------------------------------
-  wfh: {
-  title: "Work From Home Jobs",
-  links: [
-  ["Amazon WFH","https://www.amazon.jobs"],
-  ["Tech Support WFH","https://www.naukri.com"],
-  ["Customer Support WFH","https://www.naukri.com"]
-  ]
-  }
-  
-  };
-  
-  function openModal(category){
-  
-  const modal = document.getElementById("jobModal");
-  const title = document.getElementById("modalTitle");
-  const links = document.getElementById("modalLinks");
-  
-  title.innerText = categoryLinks[category].title;
-  
-  links.innerHTML = "";
-  
-  categoryLinks[category].links.forEach(item => {
-  
-  links.innerHTML += `
-  <a href="${item[1]}" target="_blank">
-  ${item[0]}
-  </a>
-  `;
-  
-  });
-  
-  modal.style.display = "block";
-  
-  }
-  
-  function closeModal(){
-  document.getElementById("jobModal").style.display = "none";
-  }
-  
-  window.onclick = function(event){
-  
-  const modal = document.getElementById("jobModal");
-  
-  if(event.target == modal){
-  modal.style.display = "none";
-  }
-  
-  }
-  
-  </script>
+/* ========================================= */
+/* SLIDER */
+/* ========================================= */
 
-<section class="quick-apply" id="apply">
+const slider = document.getElementById("projectSlider");
 
-  <h2 class="section-title">Quick Apply Links</h2>
-  
-  <div class="company-grid">
-  
-  <a href="https://www.amazon.jobs" target="_blank">
-  Amazon Careers
-  </a>
-  
-  <a href="https://www.tcsion.com/hub/national-qualifier-test/" target="_blank">
-  TCS NQT
-  </a>
-  
-  <a href="https://career.infosys.com" target="_blank">
-  Infosys Careers
-  </a>
-  
-  <a href="https://nextstep.tcs.com" target="_blank">
-  TCS NextStep
-  </a>
-  
-  <a href="https://www.naukri.com/job-listings-walk-in-drive-for-fresher-for-mapping-role-ll-30-may-wipro-hyderabad-0-to-0-years-290526010675" target="_blank">
-  Wipro Careers
-  </a>
-  
-  <a href="https://careers.cognizant.com" target="_blank">
-  Cognizant Careers
-  </a>
-  
-  <a href="https://www.accenture.com/in-en/careers" target="_blank">
-  Accenture Careers
-  </a>
-  
-  <a href="https://www.naukri.com/job-listings-customer-support-executive-tech-mahindra-hyderabad-1-to-6-years-220426023041" target="_blank">
-  Tech Mahindra Jobs
-  </a>
-  
-  <a href="https://www.naukri.com/bosch-jobs" target="_blank">
-  Bosch Jobs
-  </a>
-  
-  <a href="https://careers.mobisindia.com" target="_blank">
-  Hyundai Mobis Careers
-  </a>
-  
-  <a href="https://www.nvidia.com/en-in/about-nvidia/careers/" target="_blank">
-  NVIDIA Careers
-  </a>
-  
-  <a href="https://www.hcltech.com/careers" target="_blank">
-  HCL Careers
-  </a>
-  
-  <a href="https://www.ibm.com/careers" target="_blank">
-  IBM Careers
-  </a>
-  
-  <a href="https://www.capgemini.com/careers/" target="_blank">
-  Capgemini Careers
-  </a>
-  
-  <a href="https://careers.microsoft.com" target="_blank">
-  Microsoft Careers
-  </a>
-  
-  <a href="https://www.deloitte.com/global/en/careers.html" target="_blank">
-  Deloitte Careers
-  </a>
-  
-  </div>
-  
-  </section>
-  <script>
-    const companyLinks = {
-      amazon: "https://www.amazon.jobs",
-      infosys: "https://career.infosys.com",
-      tcs: "https://nextstep.tcs.com",
-      tcsnqt: "https://www.tcsion.com/hub/national-qualifier-test/",
-    
-      wipro: "https://www.naukri.com/job-listings-walk-in-drive-for-fresher-for-mapping-role-ll-30-may-wipro-hyderabad-0-to-0-years-290526010675",
-    
-      cognizant: "https://careers.cognizant.com",
-    
-      accenture: "https://www.accenture.com/in-en/careers",
-    
-      techmahindra: "https://www.naukri.com/job-listings-customer-support-executive-tech-mahindra-hyderabad-1-to-6-years-220426023041",
-    
-      bosch: "https://www.naukri.com/bosch-jobs",
-    
-      hyundaimobis: "https://careers.mobisindia.com",
-    
-      nvidia: "https://www.nvidia.com/en-in/about-nvidia/careers/",
-    
-      hcl: "https://www.hcltech.com/careers",
-    
-      ibm: "https://www.ibm.com/careers",
-    
-      capgemini: "https://www.capgemini.com/careers/",
-    
-      microsoft: "https://careers.microsoft.com",
-    
-      deloitte: "https://www.deloitte.com/global/en/careers.html"
-    };
-    </script>
+document.getElementById("slideRight").onclick = () => {
 
-<!-- <section class="search-box">
+    slider.scrollBy({
+        left:380,
+        behavior:"smooth"
+    });
 
-<input type="text" id="searchInput" placeholder="Search Jobs, Company, Role...">
+};
 
-</section> -->
+document.getElementById("slideLeft").onclick = () => {
 
-<!-- <section class="jobs" id="jobs">
+    slider.scrollBy({
+        left:-380,
+        behavior:"smooth"
+    });
 
-<h2 class="section-title">Latest Job Updates</h2>
+};
 
-<div class="job-grid">
+/* ========================================= */
+/* OPEN PROJECT */
+/* ========================================= */
 
-<div class="job-card">
-<h3>Infosys Hiring</h3>
-<p>Role: Associate Software Engineer</p>
-<p>Eligibility: B.Tech / MCA</p>
-<p>Location: Hyderabad</p>
-<button>Apply Now</button>
-</div>
+function openProject(title, description, tech, image, github, live){
 
-<div class="job-card">
-<h3>Wipro Walk-In</h3>
-<p>Role: QA Analyst</p>
-<p>Eligibility: Freshers</p>
-<p>Location: Hyderabad</p>
-<button>Apply Now</button>
-</div>
+    document.getElementById("projectModal").classList.remove("hidden");
 
-<div class="job-card">
-<h3>Tech Mahindra</h3>
-<p>Role: Process Associate</p>
-<p>Eligibility: Any Graduate</p>
-<p>Location: HITEC City</p>
-<button>Apply Now</button>
-</div>
+    document.getElementById("projectModal").classList.add("flex");
 
-</div>
+    document.getElementById("modalTitle").innerText = title;
 
-</section> -->
+    document.getElementById("modalDescription").innerText = description;
 
+    document.getElementById("modalImage").src = image;
 
-<section class="social" id="social">
+    /* TECH TAGS */
 
-<h2 class="section-title">Join Our Community</h2>
+    const techContainer = document.getElementById("modalTech");
 
-<div class="social-links">
+    techContainer.innerHTML = "";
 
-<a href="https://instagram.com/freshers.job.alerts">Instagram</a>
+    const techArray = tech.split(",");
 
-<!-- <a href="#">Telegram</a>
+    techArray.forEach(item => {
 
-<a href="#">WhatsApp</a> -->
+        const tag = document.createElement("span");
 
-</div>
+        tag.className =
+            "px-4 py-2 rounded-full bg-slate-800 text-cyan-400 text-sm border border-cyan-500/20";
 
-</section>
+        tag.innerText = item.trim();
 
-<footer>
+        techContainer.appendChild(tag);
 
-© 2026 Freshers Job Alerts. All Rights Reserved.
+    });
 
-</footer>
+}
 
-<script>
+/* ========================================= */
+/* CLOSE PROJECT */
+/* ========================================= */
 
-const searchInput = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".job-card");
+function closeProject(){
 
-searchInput.addEventListener("keyup", function(){
+    document.getElementById("projectModal").classList.add("hidden");
 
-const value = this.value.toLowerCase();
+    document.getElementById("projectModal").classList.remove("flex");
 
-cards.forEach(card => {
+}
 
-const text = card.innerText.toLowerCase();
+/* ========================================= */
+/* CLICK OUTSIDE CLOSE */
+/* ========================================= */
 
-card.style.display =
-text.includes(value) ? "block" : "none";
+window.onclick = function(e){
 
-});
+    const modal = document.getElementById("projectModal");
 
-});
+    if(e.target === modal){
+
+        closeProject();
+
+    }
+
+}
 
 </script>
+     <!-- SECTION DIVIDER -->
+     <div class="flex items-center justify-center my-2 bg-darker">
 
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+        <span class="mx-4 text-slate-400 text-sm tracking-widest uppercase">
+            velino
+        </span>
+    
+        <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+    
+    </div>
+
+<!-- CSS -->
+<style>
+
+.project-card{
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.project-card:hover{
+    transform: translateY(-10px);
+    border-color: rgba(34,211,238,0.5);
+    box-shadow: 0 20px 40px rgba(34,211,238,0.15);
+}
+
+.project-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.project-card:hover .project-image{
+    transform: scale(1.08);
+}
+
+.project-title{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+</style>
+
+
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">
+                    Get In  <span class="gradient-text">Touch</span>
+                </h3>
+                <!-- <h3 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h3> -->
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    <p class="text-slate-400 mb-8">
+                        Feel free to reach out to me for any questions or opportunities. 
+                        I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-slate-800 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Location</h4>
+                                <p class="text-slate-400">Warangal,Telangana, India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-slate-800 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email</h4>
+                                <p class="text-slate-400">shivavelishoju0827@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-slate-800 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Phone</h4>
+                                <p class="text-slate-400">+91 9963761162</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   <!-- FOLLOW ME -->
+<div class="mt-8">
+
+    <h4 class="font-bold mb-4">
+        Follow Me
+    </h4>
+
+    <!-- SOCIAL ICONS -->
+    <div class="flex flex-wrap gap-4">
+
+        <!-- GITHUB -->
+        <a href="#"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary">
+
+            <i class="fab fa-github text-xl"></i>
+
+        </a>
+
+        <!-- LINKEDIN -->
+        <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-blue-600">
+
+            <i class="fab fa-linkedin-in text-xl"></i>
+
+        </a>
+
+        <!-- WHATSAPP -->
+        <a href="https://wa.me/919963761162"
+            target="_blank"
+            class="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 hover:bg-green-500">
+
+            <i class="fab fa-whatsapp text-xl"></i>
+
+        </a>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- RESUME SECTION -->
+    <!-- ========================================= -->
+
+    <div class="mt-8">
+
+        <h4 class="font-bold mb-4">
+            Download Resume
+        </h4>
+
+        <div class="resume-wrapper">
+
+            <!-- SELECT -->
+            <select id="resumeSelect"
+                class="resume-select">
+
+                <option value="">
+                    Select Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/1h2V1ZmvhcwtC1cqu-4ip1dtJnT8L5IXO/view?usp=drive_link">
+                    ECE Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/11q0IcUZPtw736Mo_QFgI-SPiHFKhtViW/view?usp=drive_link">
+                    Java Developer Resume
+                </option>
+
+                <option value="https://drive.google.com/file/d/1Z_XZ1UdlLzjCqylogyV94QWNSeJt7Etp/view?usp=drive_link">
+                    Manual Testing Resume
+                </option>
+
+            </select>
+
+            <!-- BUTTON -->
+            <button onclick="downloadResume()"
+                class="resume-btn">
+
+                <i class="fas fa-download mr-2"></i>
+                Download CV
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div><style>/* ========================================= */
+    /* RESUME SECTION */
+    /* ========================================= */
+    
+    .resume-wrapper{
+    
+        display:flex;
+        gap:14px;
+    
+        align-items:center;
+    
+        flex-wrap:wrap;
+    }
+    
+    .resume-select{
+    
+        background:#1e293b;
+    
+        border:1px solid rgba(255,255,255,.1);
+    
+        color:white;
+    
+        padding:14px 20px;
+    
+        border-radius:999px;
+    
+        outline:none;
+    
+        min-width:260px;
+    
+        transition:.3s ease;
+    }
+    
+    .resume-select:focus{
+    
+        border-color:#06b6d4;
+    
+        box-shadow:0 0 15px rgba(6,182,212,.25);
+    }
+    
+    .resume-btn{
+    
+        padding:14px 28px;
+    
+        border-radius:999px;
+    
+        background:linear-gradient(to right,#06b6d4,#3b82f6);
+    
+        color:white;
+    
+        font-weight:600;
+    
+        transition:.3s ease;
+    
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .resume-btn:hover{
+    
+        transform:translateY(-3px);
+    
+        box-shadow:0 10px 25px rgba(6,182,212,.35);
+    }
+    
+    /* MOBILE */
+    @media(max-width:768px){
+    
+        .resume-wrapper{
+    
+            flex-direction:column;
+            align-items:stretch;
+        }
+    
+        .resume-select,
+        .resume-btn{
+    
+            width:100%;
+        }
+    }</style>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Send Me a Message</h3>
+                    <form action="https://formsubmit.co/shivavelishoju0827@gmail.com"
+      method="POST"
+      class="space-y-6">
+
+    <!-- Disable Captcha -->
+    <input type="hidden" name="_captcha" value="false">
+
+    <!-- Redirect After Submit -->
+    <input type="hidden" name="_next" value="shivavelishoju0827@gmail.com">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div>
+            <label for="name" class="block mb-2 font-medium">
+                Your Name
+            </label>
+
+            <input type="text"
+                   name="name"
+                   id="name"
+                   class="w-full px-4 py-3 rounded-lg contact-input focus:outline-none"
+                   required>
+        </div>
+
+        <div>
+            <label for="email" class="block mb-2 font-medium">
+                Your Email
+            </label>
+
+            <input type="email"
+                   name="email"
+                   id="email"
+                   class="w-full px-4 py-3 rounded-lg contact-input focus:outline-none"
+                   required>
+        </div>
+
+    </div>
+
+    <div>
+        <label for="subject" class="block mb-2 font-medium">
+            Subject
+        </label>
+
+        <input type="text"
+               name="subject"
+               id="subject"
+               class="w-full px-4 py-3 rounded-lg contact-input focus:outline-none"
+               required>
+    </div>
+
+    <div>
+        <label for="message" class="block mb-2 font-medium">
+            Message
+        </label>
+
+        <textarea name="message"
+                  id="message"
+                  rows="7"
+                  class="w-full px-4 py-3 rounded-lg contact-input focus:outline-none"
+                  required></textarea>
+    </div>
+
+    <button type="submit"
+            class="px-8 py-3 rounded-full btn-primary font-medium w-full">
+
+        Send Message
+        <i class="fas fa-paper-plane ml-2"></i>
+    </button>
+
+</form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+<!-- PROFESSIONAL FOOTER -->
+<footer class="bg-[#0b1120] border-t border-slate-800 pt-16 pb-8 relative overflow-hidden">
+
+    <!-- Background Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/10 blur-3xl rounded-full opacity-20"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+
+        <!-- TOP FOOTER -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 ">
+
+            <!-- BRAND -->
+            <div>
+
+                <h2 class="text-3xl font-bold gradient-text mb-4">
+                    VELINO
+                </h2>
+
+                <p class="text-slate-400 leading-relaxed">
+                    Passionate Embedded Systems and Software Developer specializing in IoT,
+                    robotics, automation, and intelligent technology solutions. Focused on
+                    designing innovative hardware and modern software systems that deliver
+                    real-world impact through smart engineering, performance, and futuristic
+                    user experiences.
+                </p>
+
+            </div>
+
+            <!-- QUICK LINKS -->
+            <div>
+
+                <h3 class="text-xl font-semibold mb-5 text-white">
+                    Quick Links
+                </h3>
+
+                <ul class="space-y-3">
+
+                    <li>
+                        <a href="#home"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#about"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#Experience"
+                           class="text-slate-400 hover:text-primary transition duration-300">                
+                            Experience
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#skills"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Skills
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#projects"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Projects
+                        </a>
+                        
+                    </li>
+
+                    <li>
+                        <a href="#contact"
+                           class="text-slate-400 hover:text-primary transition duration-300">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- SOCIAL -->
+            <div>
+
+                <h3 class="text-xl font-semibold mb-5 text-white">
+                    Connect With Me
+                </h3>
+
+                <p class="text-slate-400 mb-6">
+                    Follow me on social platforms and stay connected
+                    for upcoming projects and innovations.
+                </p>
+
+                <div class="flex gap-4">
+
+                    <!-- GitHub -->
+                    <a href="#"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-primary transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-github text-lg"></i>
+
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/shiva-velishoju-6650982b1/"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-blue-600 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-linkedin-in text-lg"></i>
+
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/919963761162"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-green-500 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-whatsapp text-lg"></i>
+
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#"
+                       target="_blank"
+                       class="w-12 h-12 rounded-2xl bg-slate-800 hover:bg-pink-600 transition duration-300 flex items-center justify-center hover:scale-110 shadow-lg">
+
+                        <i class="fab fa-instagram text-lg"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER BOTTOM -->
+<div class="border-t border-slate-800/80 mt-12 pt-8">
+
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-5">
+
+        <!-- COPYRIGHT -->
+        <div class="text-center lg:text-left">
+
+            <h4 class="text-lg font-semibold text-white mb-1">
+                Shiva Velishoju
+            </h4>
+
+            <p class="text-slate-500 text-sm">
+                © 2026 VELINO Technologies. All rights reserved.
+            </p>
+
+        </div>
+
+        <!-- CENTER TEXT -->
+        <div class="flex items-center gap-2 text-slate-400 text-sm text-center">
+
+            Crafted with
+            <i class="fas fa-heart text-red-500 animate-pulse"></i>
+            for futuristic embedded systems & smart software experiences
+
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="flex items-center gap-6 text-sm">
+
+            <a href="#home"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Home
+
+            </a>
+
+            <a href="#projects"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Projects
+
+            </a>
+
+            <a href="#contact"
+               class="text-slate-500 hover:text-primary transition duration-300">
+
+                Contact
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BACK TO TOP BUTTON -->
+<button id="back-to-top"
+class="fixed bottom-8 right-8 w-14 h-14 rounded-2xl bg-gradient-to-r from-primary to-secondary text-white shadow-2xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:scale-110 z-50">
+
+    <i class="fas fa-arrow-up text-lg"></i>
+
+</button>
+<style>/* ========================================= */
+    /* BACK TO TOP BUTTON */
+    /* ========================================= */
+    
+    #back-to-top{
+    
+        position:fixed;
+    
+        bottom:30px;
+        right:30px;
+    
+        width:56px;
+        height:56px;
+    
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    
+        border:none;
+    
+        border-radius:px;
+    
+        background:
+        linear-gradient(
+        135deg,
+        #06b6d4,
+        #2563eb
+        );
+    
+        color:white;
+    
+        font-size:18px;
+    
+        cursor:pointer;
+    
+        z-index:99999;
+    
+        opacity:0;
+        visibility:hidden;
+    
+        transition:.35s ease;
+    
+        box-shadow:
+        0 10px 30px rgba(6,182,212,.35);
+    }
+    
+    /* SHOW BUTTON */
+    
+    #back-to-top.show{
+    
+        opacity:1;
+        visibility:visible;
+    }
+    
+    /* HOVER */
+    
+    #back-to-top:hover{
+    
+        transform:
+        translateY(-5px)
+        scale(1.05);
+    
+        box-shadow:
+        0 15px 35px rgba(37,99,235,.4);
+    }
+    
+    /* MOBILE */
+    
+    @media(max-width:768px){
+    
+        #back-to-top{
+    
+            width:50px;
+            height:50px;
+    
+            right:18px;
+            bottom:20px;
+    
+            border-radius:50px;
+        }
+    }</style>
+    <script>
+
+        /* ========================================= */
+        /* BACK TO TOP */
+        /* ========================================= */
+        
+        const backToTopBtn =
+        document.getElementById("back-to-top");
+        
+        /* SHOW BUTTON */
+        
+        window.addEventListener("scroll",()=>{
+        
+            if(window.scrollY > 300){
+        
+                backToTopBtn.classList.add("show");
+        
+            }else{
+        
+                backToTopBtn.classList.remove("show");
+            }
+        
+        });
+        
+        /* SCROLL TO TOP */
+        
+        backToTopBtn.addEventListener("click",()=>{
+        
+            window.scrollTo({
+        
+                top:0,
+                behavior:"smooth"
+            });
+        
+        });
+        
+        </script>
+    <script>
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Update active link on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+            
+            // Show/hide back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            if (scrollPosition > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+        
+        // Back to top button
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Animate skill bars on scroll
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const skillsSection = document.getElementById('skills');
+            const skillsSectionTop = skillsSection.offsetTop;
+            const windowHeight = window.innerHeight;
+            
+            if (window.scrollY > skillsSectionTop - windowHeight + 200) {
+                skillBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+                
+                // Remove event listener after animation
+                window.removeEventListener('scroll', animateSkillBars);
+            }
+        };
+        
+        window.addEventListener('scroll', animateSkillBars);
+    </script>
+
+<script>
+    function openProject(title, description, tech, image, demo, code) {
+    
+        document.getElementById("projectModal").classList.remove("hidden");
+        document.getElementById("projectModal").classList.add("flex");
+    
+        document.body.style.overflow = "hidden";
+    
+        document.getElementById("modalTitle").innerText = title;
+        document.getElementById("modalDescription").innerText = description;
+        document.getElementById("modalImage").src = image;
+    
+        document.getElementById("modalDemo").href = demo;
+        document.getElementById("modalCode").href = code;
+    
+        const techContainer = document.getElementById("modalTech");
+        techContainer.innerHTML = "";
+    
+        tech.split(",").forEach(item => {
+            techContainer.innerHTML += `
+                <span class="px-4 py-2 bg-slate-700 rounded-full text-sm text-white border border-cyan-500/20">
+                    ${item.trim()}
+                </span>
+            `;
+        });
+    }
+    
+    function closeProject() {
+        document.getElementById("projectModal").classList.add("hidden");
+        document.getElementById("projectModal").classList.remove("flex");
+    
+        document.body.style.overflow = "auto";
+    }
+    
+    window.onclick = function(event) {
+        const modal = document.getElementById("projectModal");
+    
+        if(event.target === modal) {
+            closeProject();
+        }
+    }
+    
+    window.addEventListener("keydown", function(event) {
+        if(event.key === "Escape") {
+            closeProject();
+        }
+    });
+    </script>
+
+<script>
+
+    function downloadResume() {
+    
+        const resumePath = document.getElementById("resumeSelect").value;
+    
+        if (resumePath === "") {
+            alert("Please select a resume");
+            return;
+        }
+    
+        // Create hidden download link
+        const link = document.createElement("a");
+    
+        link.href = resumePath;
+    
+        link.setAttribute("download", "");
+    
+        document.body.appendChild(link);
+    
+        link.click();
+    
+        document.body.removeChild(link);
+    }
+    
+    </script>
+
+<script>
+
+    const searchInput = document.getElementById("portfolioSearch");
+    
+    searchInput.addEventListener("keypress", function(e) {
+    
+        if (e.key === "Enter") {
+    
+            const value = searchInput.value.toLowerCase();
+    
+            // Match sections
+            if (value.includes("about")) {
+                document.querySelector("#about")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("skill")) {
+                document.querySelector("#skills")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("project")) {
+                document.querySelector("#projects")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (value.includes("contact")) {
+                document.querySelector("#contact")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else if (
+                value.includes("embedded") ||
+                value.includes("iot") ||
+                value.includes("web") ||
+                value.includes("mobile")
+            ) {
+                document.querySelector("#projects")
+                    .scrollIntoView({ behavior: "smooth" });
+    
+            } else {
+    
+                alert("No matching section found");
+    
+            }
+    
+        }
+    
+    });
+    
+    </script>
+    <script>
+        const slides = document.querySelectorAll('.bg-slide');
+        let current = 0;
+        
+        function changeSlide() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }
+        
+        // Change every 5 seconds
+        setInterval(changeSlide, 5000);
+        </script>
+        
+
+    <!-- PROJECT MODAL -->
+<div id="projectModal"
+class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-3 sm:p-4 backdrop-blur-sm overflow-y-auto">
+
+    <!-- MODAL BOX -->
+    <div class="bg-slate-900
+                w-full
+                max-w-[95vw]
+                lg:max-w-4xl
+                rounded-3xl
+                overflow-hidden
+                relative
+                border border-cyan-500/20
+                shadow-2xl shadow-cyan-500/10
+                my-10">
+
+        <!-- IMAGE CONTAINER -->
+        <div class="w-full
+                    h-[200px]
+                    sm:h-[260px]
+                    md:h-[320px]
+                    lg:h-[350px]
+                    bg-black
+                    flex
+                    items-center
+                    justify-center
+                    overflow-hidden">
+
+            <img id="modalImage"
+                 src=""
+                 alt="Project Image"
+                 class="max-w-full
+                        max-h-full
+                        object-contain
+                        object-center
+                        transition duration-300">
+
+        </div>
+
+        <!-- CONTENT -->
+        <div class="p-4 sm:p-5 lg:p-6">
+
+            <!-- TITLE -->
+            <h2 id="modalTitle"
+                class="text-xl sm:text-2xl lg:text-3xl
+                       font-bold
+                       mb-3
+                       gradient-text
+                       text-center sm:text-left
+                       leading-tight">
+            </h2>
+
+           <!-- Description -->
+<p id="modalDescription"
+class="text-slate-300 mb-4 leading-relaxed text-xs md:text-20">
+</p>
+
+            <!-- TECHNOLOGIES -->
+            <div id="modalTech"
+                 class="flex flex-wrap gap-2 mb-6 justify-center sm:justify-start">
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
+
+                <!-- LIVE DEMO -->
+                <a id="modalDemo"
+                   href="#"
+                   target="_blank"
+                   class="w-full sm:w-auto
+                          text-center
+                          px-2 py-2
+                          text-sm
+                          rounded-full
+                          border border-cyan-500
+                          text-cyan-400
+                          hover:bg-cyan-500
+                          hover:text-white
+                          transition duration-300">
+
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Live Demo
+
+                </a>
+
+                <!-- GITHUB -->
+                <a id="modalCode"
+                   href="#"
+                   target="_blank"
+                   class="w-full sm:w-auto
+                          text-center
+                          px-4 py-2
+                          text-sm
+                          rounded-full
+                          border border-cyan-500
+                          text-cyan-400
+                          hover:bg-cyan-500
+                          hover:text-white
+                          transition duration-300">
+
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub
+
+                </a>
+
+                <!-- CLOSE -->
+                <button onclick="closeProject()"
+                class="w-full sm:w-auto
+                       px-4 py-2
+                       text-sm
+                       rounded-full
+                       border border-cyan-500
+                       text-cyan-400
+                       hover:bg-cyan-500
+                       hover:text-white
+                       transition duration-300">
+
+                    <i class="fas fa-times mr-2"></i>
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+    
+    </div>
 </body>
 </html>
